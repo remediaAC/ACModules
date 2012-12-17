@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+.list_mode #wireframe_page_title {
+	margin-left: 35% !important;
+}
+
+div.objects_list_wrapper div.objects_list {
+	width: 35% !important;
+}
+
+div.objects_list_wrapper div.objects_list_details {
+	left: 35% !important;
+}
+
+h1#page_title {
+	width: 600px !important;
+}
+
+#tasks tr.objects_list_item span.label_tag {
+	top: -4px;
+}
+
+span.label_overlay {
+	background: none !important;
+}
+
+span.label_background {
+	width: 12px !important;
+	height: 12px !important;
+}

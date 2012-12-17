@@ -1,0 +1,94 @@
+@CHARSET "ISO-8859-1";
+
+div.filter_criteria div.filter_criteria_head {
+	cursor: default;
+	text-align: left;
+}
+
+div.filter_criteria ul {
+	list-style-type: none;
+	display: inline;
+	margin-top: 10px;
+}
+
+div.filter_criteria ul li {
+	display: inline;
+}
+
+div.filter_criteria ul li {
+	font-weight: bold;
+}
+
+div.filter_criteria ul li ul li {
+	padding: 10px;
+	border: 1px solid #333;
+	margin: 15px 3px 0 3px;
+	background: #E9EAE0;
+}
+
+div.filter_criteria ul li ul li a {
+	padding: 10px;
+}
+
+.contenitore_milestone {
+	padding: 0;
+	background: #FFFDE4;
+	box-shadow: 0 0 4px #CCC;
+	border-radius: 15px 15px 15px 15px;
+	margin: 20px;
+	color: black;
+	text-align: left;
+	display: block;
+}
+
+.nome_milestone {
+	background: white;
+	border-bottom: 1px solid #EDEBCA;
+	text-align: left;
+	padding: 20px 15px;
+	height: 19px;
+	border-radius: 15px 15px 0 0;
+}
+
+.cella_labels {
+	text-align: right;
+}
+
+.cella_id {
+	color: #989898;
+}
+
+.cella_data_scadenza.not_set {
+	color: #989898;
+}
+
+.cella_data_scadenza.orario,
+.cella_data_scadenza.ritardo {
+	font-weight: bold;
+}
+
+.cella_data_scadenza.orario {
+	color: #0066FF;
+}
+
+.cella_data_scadenza.ritardo {
+	color: red;
+}
+
+.cella_labels .label {
+	border-radius: 5px 5px 5px 5px;
+	font-size: 9px;
+	font-weight: bold;
+	padding: 1px 4px;
+	display: inline-block;
+}
+
+.cella_labels .priorita {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+.contenitore_milestone .lista{
+	padding: 20px 0 20px 0;
+}
