@@ -97,8 +97,6 @@ class FrossoGanttChartController extends ProjectController{
 					$res['percent_completion'] = 1; //TODO: cambiare
 				}
 				
-// 				$res['percent_completion'] = 1; //TODO: cambiare
-				
 				$tasks[] = $res;
 				
 				if(($res['milestone_id'] == 0) &&($first_task_time->getTimestamp() > $start_on->getTimestamp()))
