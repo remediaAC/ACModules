@@ -91,13 +91,13 @@ class FrossoGanttChartController extends ProjectController{
 				
 				$res['durata'] = $start_on->daysBetween($completion_date) * 8; //giorni_differenza * ore_lavorative
 				
-// 				if($res['is_completed']){
-// 					$res['percent_completion'] = 100;
-// 				}else{
-// 					$res['percent_completion'] = 99; //TODO: cambiare
-// 				}
+				if($res['is_completed']){
+					$res['percent_completion'] = 100;
+				}else{
+					$res['percent_completion'] = 1; //TODO: cambiare
+				}
 				
-				$res['percent_completion'] = 99; //TODO: cambiare
+// 				$res['percent_completion'] = 1; //TODO: cambiare
 				
 				$tasks[] = $res;
 				
