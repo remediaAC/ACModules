@@ -322,6 +322,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
         	'label' : 'Nessun filtro label',
         	'value' : '',
         	'icon' : App.Wireframe.Utils.imageUrl('status-icons/tag.png', 'frosso_tasks_tab_mod'),
+        	'default' : true,
         	'breadcrumbs' : 'Nessun filtro label'    
           }, {
         	'label' : 'NEW',
