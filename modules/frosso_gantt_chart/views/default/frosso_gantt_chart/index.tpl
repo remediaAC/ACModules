@@ -5,9 +5,9 @@
 // Create Gantt control
 var ganttChartControl = new GanttChart();
 // Setup paths and behavior
-ganttChartControl.setImagePath("/ActiveCollab3/custom/modules/frosso_gantt_chart/assets/default/images/");
+ganttChartControl.setImagePath("/ActiveCollab3/custom/modules/frosso_gantt_chart/assets/default/images/"); //TODO: cambiare con il path corretto
 ganttChartControl.setEditable(false);
-ganttChartControl.showTreePanel(false);
+ganttChartControl.showTreePanel(true);
 ganttChartControl.showContextMenu(true);
 ganttChartControl.showDescTask(true,'n,s-f');
 ganttChartControl.showDescProject(true,'n,d');
