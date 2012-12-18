@@ -314,6 +314,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       }]
     });
     
+    /* INIZIO FRosso Hack */
     init_options.filtering.push({
         'label' : 'Current label (frosso)',
         'property' : 'label_id',
@@ -364,7 +365,8 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
         	'breadcrumbs' : 'Label: CLOSED'
     	  }] 
         });
-
+    /* FINE FRosso Hack */
+    
     init_options.requirements.is_archived = 0;
   } else {
     init_options.requirements.is_archived = 1;

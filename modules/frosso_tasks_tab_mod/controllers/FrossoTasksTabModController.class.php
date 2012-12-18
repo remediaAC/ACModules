@@ -93,7 +93,6 @@ class FrossoTasksTabModController extends TasksPlusController {
 			$labels = Labels::getIdDetailsMap('AssignmentLabel');
 	
 			foreach ($tasks as $task) {
-				if($task['label_id'] != '23'){
 					list($total_subtasks, $open_subtasks) = ProjectProgress::getObjectProgress(array(
 							'project_id' => $project_id,
 							'object_type' => 'Task',
@@ -128,7 +127,6 @@ class FrossoTasksTabModController extends TasksPlusController {
 							'due_on'			=> $task['due_on'] ? $task['due_on'] : lang('No due date set'),
 							'stato'				=> $task['due_on'] ? ($task['due_on'] >= $today ? 'orario' : 'ritardo') : 'not_set' //se c'è la data di scadenza, controllo che sia nel futuro, altrimenti il task è in ritardo
 					);
-				}
 			} // foreach
 		} // if
 	
