@@ -1,6 +1,6 @@
 {title}My Projects{/title}
 {add_bread_crumb}My Projects{/add_bread_crumb}
-
+	Progetto: {select_project name='task_report[project_id]' user=$logged_user show_all=true class=long}
 {if $projects}
 <table class="common" cellspacing="0">
   <thead>

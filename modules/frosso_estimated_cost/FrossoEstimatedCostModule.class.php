@@ -34,4 +34,13 @@ class FrossoEstimatedCostModule extends AngieModule {
 // 		EventsManager::listen('on_homescreen_widget_types', 'on_homescreen_widget_types');
 		EventsManager::listen('on_reports_panel', 'on_reports_panel');
 	}
+	
+	function install(){
+		//Aggiunge il campo personalizzato percentuale completamento
+		try {
+			DB::execute('ALTER TABLE ' . TABLE_PREFIX . 'project_objects ADD COLUMN `fr_perc_complete` INT(3) UNSIGNED DEFAULT \'0\' AFTER `workflow_status`');
+		} catch (Exception $e) {
+		}
+	}
+	
 }
