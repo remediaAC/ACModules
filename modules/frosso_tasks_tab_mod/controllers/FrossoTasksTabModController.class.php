@@ -87,9 +87,9 @@ class FrossoTasksTabModController extends TasksPlusController {
 						rec.tracked_time
 					FROM " . TABLE_PREFIX . "project_objects o LEFT JOIN " . TABLE_PREFIX . "users u ON(o.assignee_id=u.id)
 					LEFT JOIN (SELECT parent_id, value AS estimated_time FROM " . TABLE_PREFIX . "estimates) es ON(o.id=es.parent_id)
-					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state=3 GROUP BY(parent_id)) rec ON(o.id=rec.parent_id)
+					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state = ? GROUP BY(parent_id)) rec ON(o.id=rec.parent_id)
 					WHERE o.type = 'Task' AND o.project_id = ? AND o.state = ? AND o.visibility >= ?"
-				, $project->getId(), $state, $user->getMinVisibility());
+				, $state, $project->getId(), $state, $user->getMinVisibility());
 		if (is_foreachable($tasks)) {
 			$task_url = Router::assemble('project_task', array('project_slug' => $project->getSlug(), 'task_id' => '--TASKID--'));
 			$project_id = $project->getId();
