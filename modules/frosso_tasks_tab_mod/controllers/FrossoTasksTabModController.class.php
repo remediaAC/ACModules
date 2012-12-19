@@ -82,8 +82,12 @@ class FrossoTasksTabModController extends TasksPlusController {
 						o.updated_on,
 						o.due_on,
 						u.first_name,
-						u.last_name
+						u.last_name,
+						es.estimated_time,
+						rec.tracked_time
 					FROM " . TABLE_PREFIX . "project_objects o LEFT JOIN " . TABLE_PREFIX . "users u ON(o.assignee_id=u.id)
+					LEFT JOIN (SELECT parent_id, value AS estimated_time FROM " . TABLE_PREFIX . "estimates) es ON(o.id=es.parent_id)
+					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state=3 GROUP BY(parent_id)) rec ON(o.id=rec.parent_id)
 					WHERE o.type = 'Task' AND o.project_id = ? AND o.state = ? AND o.visibility >= ?"
 				, $project->getId(), $state, $user->getMinVisibility());
 		if (is_foreachable($tasks)) {
@@ -115,8 +119,8 @@ class FrossoTasksTabModController extends TasksPlusController {
 							'delegated_by_id'   => $task['delegated_by_id'],
 							'total_subtasks'    => $total_subtasks,
 							'open_subtasks'     => $open_subtasks,
-							'estimated_time'    => 0,
-							'tracked_time'      => 0,
+							'estimated_time'    => $task['estimated_time'] 	? $task['estimated_time'] 	: 0,
+							'tracked_time'      => $task['tracked_time'] 	? $task['tracked_time'] 	: 0,
 							'is_favorite'       => Favorites::isFavorite(array('Task', $task['id']), $user),
 							'is_archived'       => $task['state'] == STATE_ARCHIVED ? 1 : 0,
 							'visibility'        => $task['visibility'],
