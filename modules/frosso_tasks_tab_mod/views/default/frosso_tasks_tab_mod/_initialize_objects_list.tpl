@@ -202,12 +202,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
 
       // Completed task
       if(item['is_completed']) {
-        if(typeof(item['tracked_time']) != 'undefined' && item['tracked_time']) {
           row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-' + color_class + '-100.png', 'complete') + '">';
-        } else {
-          row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-mono-100.png', 'complete') + '">';
-        } // if
-        
         // Still open
       } else {
         var total_subtasks = typeof(item['total_subtasks']) != 'undefined' && item['total_subtasks'] ? item['total_subtasks'] : 0;
