@@ -41,8 +41,9 @@ class FrossoGanttChartController extends ProjectController{
 		$milestones 	= array();
 		$tasks 			= array();
 		
-		//futuro
+		// voglio il task non categorizzato che inizia prima di tutti, quindi setto questo nel futuro
 		$first_task_time = new DateValue(time()+time());
+		$trovato = false;
 		
 		if(is_foreachable($tasks_t)){
 			foreach($tasks_t as $task){
@@ -99,19 +100,23 @@ class FrossoGanttChartController extends ProjectController{
 				
 				$tasks[] = $res;
 				
-				if(($res['milestone_id'] == 0) &&($first_task_time->getTimestamp() > $start_on->getTimestamp()))
+				if(($res['milestone_id'] == 0) &&($first_task_time->getTimestamp() > $start_on->getTimestamp())){
 					$first_task_time = $start_on;
+					$trovato = false;
+				}
 				
 			}
 		}
 		
-		//Aggiungo la milestone per tasks non categorizzati
-		$milestones[0]['id'] 			= 0;
-		$milestones[0]['name'] 			= lang("Uncategorized");
-		$milestones[0]['start_on_d'] 	= $first_task_time->getDay();
-		$milestones[0]['start_on_m'] 	= $first_task_time->getMonth()-1;
-		$milestones[0]['start_on_y'] 	= $first_task_time->getYear();
-		$milestones[0]['durata'] 		= 1;
+		if($trovato){
+			//Aggiungo la milestone per tasks non categorizzati
+			$milestones[0]['id'] 			= 0;
+			$milestones[0]['name'] 			= lang("Uncategorized");
+			$milestones[0]['start_on_d'] 	= $first_task_time->getDay();
+			$milestones[0]['start_on_m'] 	= $first_task_time->getMonth()-1;
+			$milestones[0]['start_on_y'] 	= $first_task_time->getYear();
+			$milestones[0]['durata'] 		= 1;
+		}
 		
 		if(is_foreachable($milestones_t)){
 			foreach($milestones_t as $milestone){
