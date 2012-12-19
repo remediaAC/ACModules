@@ -183,12 +183,27 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       // aggiungo il responsabile
       row += '&nbsp;<strong>' + item['assignee_name'] + '</strong>';
       row += App.Wireframe.Utils.renderVisibilityIndicator(item['visibility'])  + ' ' + '</span></span></td><td class="task_options">';
+      
+      var color_class = 'mono';
+
+      if(typeof(item['estimated_time']) != 'undefined' && typeof(item['tracked_time']) != 'undefined') {
+        if(item['estimated_time'] > 0) {
+          if(item['tracked_time'] > item['estimated_time']) {
+            var color_class = 'red';
+          } else if(item['tracked_time'] > 0) {
+            var color_class = 'blue';
+          } // if
+        } else if(item['tracked_time'] > 0) {
+          var color_class = 'blue';
+        } // if
+      } // if
+      
       /* FINE FRosso Hack */
 
       // Completed task
       if(item['is_completed']) {
         if(typeof(item['tracked_time']) != 'undefined' && item['tracked_time']) {
-          row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-blue-100.png', 'complete') + '">';
+          row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-' + color_class + '-100.png', 'complete') + '">';
         } else {
           row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-mono-100.png', 'complete') + '">';
         } // if
@@ -198,20 +213,6 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
         var total_subtasks = typeof(item['total_subtasks']) != 'undefined' && item['total_subtasks'] ? item['total_subtasks'] : 0;
         var open_subtasks = typeof(item['open_subtasks']) != 'undefined' && item['open_subtasks'] ? item['open_subtasks'] : 0;
         var completed_subtasks = total_subtasks - open_subtasks;
-
-        var color_class = 'mono';
-
-        if(typeof(item['estimated_time']) != 'undefined' && typeof(item['tracked_time']) != 'undefined') {
-          if(item['estimated_time'] > 0) {
-            if(item['tracked_time'] > item['estimated_time']) {
-              var color_class = 'red';
-            } else if(item['tracked_time'] > 0) {
-              var color_class = 'blue';
-            } // if
-          } else if(item['tracked_time'] > 0) {
-            var color_class = 'blue';
-          } // if
-        } // if
 
         if (item['is_completed']) {
 	      row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-' + color_class + '-100.png', 'complete') + '">';
