@@ -197,14 +197,13 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
           var color_class = 'blue';
         } // if
       } // if
-      
-      /* FINE FRosso Hack */
 
       // Completed task
       if(item['is_completed']) {
           row += '<img src="' + App.Wireframe.Utils.imageUrl('progress/progress-' + color_class + '-100.png', 'complete') + '">';
         // Still open
       } else {
+      /* FINE FRosso Hack */
         var total_subtasks = typeof(item['total_subtasks']) != 'undefined' && item['total_subtasks'] ? item['total_subtasks'] : 0;
         var open_subtasks = typeof(item['open_subtasks']) != 'undefined' && item['open_subtasks'] ? item['open_subtasks'] : 0;
         var completed_subtasks = total_subtasks - open_subtasks;
