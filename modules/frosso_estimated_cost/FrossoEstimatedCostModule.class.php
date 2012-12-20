@@ -34,6 +34,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 	function defineHandlers(){
 // 		EventsManager::listen('on_homescreen_widget_types', 'on_homescreen_widget_types');
 		EventsManager::listen('on_reports_panel', 'on_reports_panel');
+		EventsManager::listen('on_project_overview_sidebars', 'on_project_overview_sidebars');
 	}
 	
 	function install(){
