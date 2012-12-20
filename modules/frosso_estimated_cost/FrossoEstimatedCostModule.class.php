@@ -32,13 +32,20 @@ class FrossoEstimatedCostModule extends AngieModule {
 	
 	function defineHandlers(){
 // 		EventsManager::listen('on_homescreen_widget_types', 'on_homescreen_widget_types');
-		EventsManager::listen('on_reports_panel', 'on_reports_panel');
+// 		EventsManager::listen('on_reports_panel', 'on_reports_panel');
 	}
 	
 	function install(){
 		//Aggiunge il campo personalizzato percentuale completamento
+// 		FwCustomFields::initForType('Milestone');
 		try {
-			DB::execute('ALTER TABLE ' . TABLE_PREFIX . 'project_objects ADD COLUMN `fr_perc_complete` INT(3) UNSIGNED DEFAULT \'0\' AFTER `workflow_status`');
+// 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`) 
+// 					VALUES (\'custom_field_1\', \'Milestone\', \'Percent Complete\', 1)');
+// 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
+// 					VALUES (\'custom_field_2\', \'Milestone\', \'NULL\', 0)');
+// 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
+// 					VALUES (\'custom_field_3\', \'Milestone\', \'NULL\', 0)');
+// 			DB::execute('ALTER TABLE ' . TABLE_PREFIX . 'project_objects ADD COLUMN `fr_perc_complete` VARCHAR(255) DEFAULT \'0\' AFTER `workflow_status`');
 		} catch (Exception $e) {
 		}
 	}
