@@ -20,7 +20,7 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	/*
 	 * Versione
 	 */
-	protected $version = '0.4';
+	protected $version = '0.5';
 	
 	/**
 	 * Name of the project object class (or classes) that this module uses
