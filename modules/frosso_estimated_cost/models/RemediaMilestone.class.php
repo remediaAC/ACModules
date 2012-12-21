@@ -2,6 +2,15 @@
 
 class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	
+	function __construct($id = null) {
+		parent::__construct($id);
+		$this->fields = array_merge($this->fields, array('custom_field_1', 'custom_field_2', 'custom_field_3'));
+	}
+	
+	private function cast($obj, $to_class) {
+		return unserialize(preg_replace('/^O:\d+:"[^"]++"/', 'O:' . strlen($to_class) . ':"' . $to_class . '"', serialize($obj)));
+	}
+	
 	/**
 	 * Cached search helper instance
 	 *
@@ -16,7 +25,7 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	 */
 	function customFields() {
 		if($this->custom_fields === false) {
-			$this->custom_fields = new IMilestoneCustomFieldsImplementation($this);
+			$this->custom_fields = new IMilestoneCustomFieldsImplementation($this->cast($this, 'Milestone'));
 		} // if
 	
 		return $this->custom_fields;

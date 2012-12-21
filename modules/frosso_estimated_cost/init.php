@@ -5,5 +5,6 @@ define('FROSSO_EC_MODULE_PATH', CUSTOM_PATH . '/modules/' . FROSSO_EC_MODULE);
 
 AngieApplication::setForAutoload(array(
 	'IMilestoneTrackingImplementation'		=> FROSSO_EC_MODULE_PATH . '/models/IMilestoneTrackingImplementation.class.php',
+	'IMilestoneCustomFieldsImplementation'	=> FROSSO_EC_MODULE_PATH . '/models/IMilestoneCustomFieldsImplementation.class.php',
 	'RemediaMilestone'						=> FROSSO_EC_MODULE_PATH . '/models/RemediaMilestone.class.php'
 ));

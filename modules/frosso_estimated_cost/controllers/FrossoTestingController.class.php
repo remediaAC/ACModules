@@ -13,9 +13,12 @@ class FrossoTestingController extends ReportsController {
 // 		$defJobType = JobTypes::findById(1);
 // 		$mil->tracking()->setEstimate(2, $defJobType, "Commento", $this->logged_user);
 
+		$mil->setFieldValue('custom_field_1', '93');
 
-		print_r($mil->tracking()->getEstimate());
-		$this->smarty->assign(array('val'=>$mil->tracking()->getEstimate()->getValue()));
+		
+		
+// 		print_r($mil->tracking()->getEstimate());
+		$this->smarty->assign(array('val'=>$mil->customfields()->getValue('custom_field_1')));
 
 	}
 
