@@ -86,8 +86,8 @@ class FrossoTasksTabModController extends TasksPlusController {
 						es.estimated_time,
 						rec.tracked_time
 					FROM " . TABLE_PREFIX . "project_objects o LEFT JOIN " . TABLE_PREFIX . "users u ON(o.assignee_id=u.id)
-					LEFT JOIN (SELECT parent_id, value AS estimated_time FROM " . TABLE_PREFIX . "estimates ORDER BY created_on DESC LIMIT 1) es ON(o.id=es.parent_id)
-					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state = ? GROUP BY(parent_id) LIMIT 1) rec ON(o.id=rec.parent_id)
+					LEFT JOIN (SELECT parent_id, value AS estimated_time FROM " . TABLE_PREFIX . "estimates GROUP BY parent_id ORDER BY created_on DESC) es ON(o.id=es.parent_id)
+					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state = ? GROUP BY(parent_id)) rec ON(o.id=rec.parent_id)
 					WHERE o.type = 'Task' AND o.project_id = ? AND o.state = ? AND o.visibility >= ?"
 				, $state, $project->getId(), $state, $user->getMinVisibility());
 		if (is_foreachable($tasks)) {
