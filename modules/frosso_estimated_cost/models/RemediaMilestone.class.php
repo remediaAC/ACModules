@@ -37,7 +37,7 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function tracking() {
 		if($this->tracking === false) {
 			if(AngieApplication::isModuleLoaded('tracking')) {
-				$this->tracking = new ITrackingImplementation($this);
+				$this->tracking = new IMilestoneTrackingImplementation($this);
 			} else {
 				$this->tracking = new ITrackingImplementationStub($this);
 			} // if
