@@ -40,22 +40,22 @@ class FrossoEstimatedCostModule extends AngieModule {
 	function install(){
 		//Aggiunge il campo personalizzato percentuale completamento
 		try {
-			FwCustomFields::initForType('Milestone');
+			FwCustomFields::initForType('RemediaMilestone');
 			$settings = array(
 					'custom_field_1' =>array(
 								'is_enabled' 	=> 1,
 								'label'			=> 'Percent Complete'
 							)
 					);
-			FwCustomFields::setCustomFieldsByType('Milestone', $settings);
+			FwCustomFields::setCustomFieldsByType('RemediaMilestone', $settings);
 		} catch (Exception $e) {
 			// Workaround for AC *buggy* code :) (until AC devs will fix it)
 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
-					VALUES (\'custom_field_1\', \'Milestone\', \'Percent Complete\', 1)');
+					VALUES (\'custom_field_1\', \'RemediaMilestone\', \'Percent Complete\', 1)');
 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
-					VALUES (\'custom_field_2\', \'Milestone\', \'NULL\', 0)');
+					VALUES (\'custom_field_2\', \'RemediaMilestone\', \'NULL\', 0)');
 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
-					VALUES (\'custom_field_3\', \'Milestone\', \'NULL\', 0)');
+					VALUES (\'custom_field_3\', \'RemediaMilestone\', \'NULL\', 0)');
 		}
 		return parent::install();
 	}
