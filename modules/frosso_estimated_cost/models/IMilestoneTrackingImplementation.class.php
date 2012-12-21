@@ -84,5 +84,9 @@ class IMilestoneTrackingImplementation extends ITrackingImplementation {
 
 		return $estimate;
 	}
+	
+	function getEstimates() {
+		return $this->getEstimate();
+	}
 
 }
