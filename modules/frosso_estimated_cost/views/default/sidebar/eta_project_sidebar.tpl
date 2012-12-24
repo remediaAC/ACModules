@@ -6,10 +6,10 @@
 <thead>
 <tr>
 <th>Milestone</th>
-<th class="user">Responsabile</th>
 <th>Tempo impiegato su tempo stimato</th>
-<th>Percentuale completamento</th>
 <th>Tempo rimanente</th>
+<th>Percentuale completamento</th>
+<th>Previsione completamento</th>
 </tr>
 </thead>
 <tbody>
@@ -17,13 +17,6 @@
 <tr>
 <td>
 	<a href="{assemble route='project_milestone' project_slug=$object->getProject()->getSlug() milestone_id=$object->getId()}">{$object->getName()}</a>
-</td>
-<td>
-	{if $object->assignees()->hasAssignee()}
-		<span class="details block">{user_link user=$object->assignees()->getAssignee()}</span>
-	{else}
-		---
-	{/if}
 </td>
 <td>
 {assign var=estimate_value value=$object->tracking()->getEstimate()->getValue()}
@@ -39,7 +32,13 @@ color: green;
 
 </span>		
 </td>
-
+<td>
+{if $object->getPercentsDone(false)}
+{$object->getRemainingTime()}h
+{else}
+&#8734;
+{/if} 
+</td>
 <td>
 {if $object->getPercentsDone(false)}
 {$object->getPercentsDone(false)}%
@@ -48,11 +47,7 @@ color: green;
 {/if}
 </td>
 <td>
-{if $object->getPercentsDone(false)}
-{$object->getRemainingTime()}h
-{else}
-&#8734;
-{/if} 
+{$estimate_value+$summed_time_value}h
 </td>
 </tr>
 {/foreach}
