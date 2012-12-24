@@ -16,7 +16,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 	/*
 	 * Versione
 	*/
-	protected $version = '0.2';
+	protected $version = '0.3';
 	
 	public function getDisplayName(){
 		return lang('Milestone ETA - FRosso per reMedia');
@@ -56,6 +56,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 					);
 			FwCustomFields::setCustomFieldsByType('RemediaMilestone', $settings);
 		} catch (Exception $e) {
+			try{
 			// Workaround for AC *buggy* code :) (until AC devs will fix it)
 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
 					VALUES (\'custom_field_1\', \'RemediaMilestone\', \'Percent Complete\', 1)');
@@ -63,6 +64,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 					VALUES (\'custom_field_2\', \'RemediaMilestone\', \'NULL\', 0)');
 			DB::execute('INSERT INTO ' . TABLE_PREFIX . 'custom_fields (`field_name`, `parent_type`, `label`, `is_enabled`)
 					VALUES (\'custom_field_3\', \'RemediaMilestone\', \'NULL\', 0)');
+			} catch (Exception $e) {}
 		}
 		return parent::install();
 	}
