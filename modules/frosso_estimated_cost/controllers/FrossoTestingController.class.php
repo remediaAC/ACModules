@@ -10,7 +10,7 @@ class FrossoTestingController extends ReportsController {
 	function index() {
 		$mil = new RemediaMilestone(47969);
 
-		$defJobType = JobTypes::findById(1);
+		$defJobType = JobTypes::findById(JobTypes::getDefaultJobTypeId());
 		$mil->tracking()->setEstimate(2, $defJobType, "Commento", $this->logged_user);
 
 		$mil->setFieldValue('custom_field_1', 94);
