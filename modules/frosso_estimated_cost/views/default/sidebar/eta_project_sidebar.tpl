@@ -28,13 +28,13 @@
 <td>
 {assign var=estimate_value value=$object->tracking()->getEstimate()->getValue()}
 {assign var=summed_time_value value=$object->tracking()->sumTime($user)}
-<span style="
+<span id="milestone_estimated_container_id_{$object->getId()}" style="
 {if $estimate_value lte $summed_time_value}
 color: red;
 {else}
 color: green;
 {/if}
-	">
+	" sum_time="{$summed_time_value}">
 {$summed_time_value}h di {remedia_milestone_estimate_icon object=$object user=$logged_user show_label=false}
 
 </span>		

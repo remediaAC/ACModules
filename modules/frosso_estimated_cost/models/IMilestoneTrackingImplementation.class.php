@@ -180,6 +180,7 @@ class IMilestoneTrackingImplementation extends ITrackingImplementation {
 	function setEstimate($value, JobType $job_type, $comment, IUser $by, $check_for_duplicate = true) {
 		parent::setEstimate($value, $job_type, $comment, $by, $check_for_duplicate);
 		$this->cached_estimate = parent::getEstimate();
+		return $this->getEstimate();
 	}
 	
 	function sumTime($user) {
