@@ -9,14 +9,14 @@ class FrossoAuthenticationModule extends AngieModule {
 	/*
 	 * Versione
 	*/
-	protected $version = '0.3';
+	protected $version = '0.4';
 	
 	public function getDisplayName(){
-		return lang('Modulo creato da FRosso');
+		return lang('SSO - FRosso per reMedia');
 	}
 	
 	public function getDescription(){
-		return lang("Modulo creato per reMedia per customizzare il metodo di autenticazione");
+		return lang("Modulo creato per customizzare il metodo di autenticazione");
 	}
 	
 	function defineRoutes(){

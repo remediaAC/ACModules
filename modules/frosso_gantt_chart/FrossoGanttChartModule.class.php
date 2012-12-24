@@ -20,14 +20,14 @@ class FrossoGanttChartModule extends ActiveCollabProjectSectionModule{
 	/*
 	 * Versione
 	 */
-	protected $version = '0.1';
+	protected $version = '0.2';
 	
 	public function getDisplayName(){
-		return lang('Aggiunge Gantt Chart ai progetti');
+		return lang('Gantt project - FRosso per reMedia');
 	}
 	
 	public function getDescription(){
-		return lang("Modulo creato per reMedia per aggiungere una tab customizzata");
+		return lang("Modulo creato per aggiungere una tab customizzata con un Gantt ai progetti");
 	}
 	
 	function defineRoutes(){

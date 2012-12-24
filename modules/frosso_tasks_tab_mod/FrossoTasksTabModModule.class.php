@@ -20,7 +20,7 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	/*
 	 * Versione
 	 */
-	protected $version = '0.5';
+	protected $version = '0.6';
 	
 	/**
 	 * Name of the project object class (or classes) that this module uses
@@ -30,11 +30,11 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	//protected $project_object_classes = 'Task';
 	
 	public function getDisplayName(){
-		return lang('Modifica la tab dei tasks per incluedere anche le informazioni sul responsabile del task');
+		return lang('TasksTabMod - FRosso per reMedia');
 	}
 	
 	public function getDescription(){
-		return lang("Modulo creato per reMedia per modificare il tab dei tasks");
+		return lang("Modifica la tab dei tasks per includere anche le informazioni sul responsabile del task");
 	}
 	
 	function defineRoutes(){

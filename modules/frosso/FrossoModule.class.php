@@ -11,7 +11,7 @@ class FrossoModule extends AngieModule{
 	/*
 	 * Versione
 	 */
-	protected $version = '0.4';
+	protected $version = '0.5';
 	
 	/**
 	 * Name of the project object class (or classes) that this module uses
@@ -21,11 +21,11 @@ class FrossoModule extends AngieModule{
 	protected $project_object_classes = 'Task';
 	
 	public function getDisplayName(){
-		return lang('Modulo creato da FRosso');
+		return lang('Milestone Assignee - FRosso per reMedia');
 	}
 	
 	public function getDescription(){
-		return lang("Modulo creato per reMedia per visualizzare l\'assegnatario di un Task");
+		return lang("Modulo creato per visualizzare l\'assegnatario di un Task");
 	}
 	
 	function defineRoutes(){

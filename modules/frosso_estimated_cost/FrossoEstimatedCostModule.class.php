@@ -16,14 +16,14 @@ class FrossoEstimatedCostModule extends AngieModule {
 	/*
 	 * Versione
 	*/
-	protected $version = '0.1';
+	protected $version = '0.2';
 	
 	public function getDisplayName(){
-		return lang('Aggiunge la stima temporale alle milestone e la percentuale di completamento');
+		return lang('Milestone ETA - FRosso per reMedia');
 	}
 	
 	public function getDescription(){
-		return lang("Modulo creato per reMedia");
+		return lang("Aggiunge la stima temporale alle milestone e la percentuale di completamento");
 	}
 	
 	function defineRoutes(){
