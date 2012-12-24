@@ -5,7 +5,6 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function __construct($id = null) {
 		$this->fields = array_merge($this->fields, array('custom_field_1', 'custom_field_2', 'custom_field_3'));
 		parent::__construct($id);
-		
 	}
 	
 	/**
@@ -70,5 +69,55 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		// TODO: nope
 		return round((float) (($tempo_stimato/$tempo_impiegato)/100) * $completamento, 2);
 	}
+	
+	/**
+	 * Routing context parameters
+	 *
+	 * @var array
+	 */
+	private $routing_context_params = false;
+	
+	/**
+	 * Return routing context parameters
+	 *
+	 * @return array
+	 */
+	function getRoutingContextParams() {
+		if($this->routing_context_params === false) {
+			$this->routing_context_params = array(
+					'project_slug' => $this->getProject()->getSlug(), 
+					'milestone_id' => $this->getId()
+					);
+		} // if
+	
+		return $this->routing_context_params;
+	} // getRoutingContextParams
+	
+	/**
+	 * Return routing context name
+	 *
+	 * @return string
+	 */
+	function getRoutingContext() {
+		return 'project_milestone';
+	} // getRoutingContext
+	
+	/**
+	 * Return array or property => value pairs that describes this object
+	 *
+	 * $user is an instance of user who requested description - it's used to get
+	 * only the data this user can see
+	 *
+	 * @param IUser $user
+	 * @param boolean $detailed
+	 * @param boolean $for_interface
+	 * @return array
+	 */
+	function describe(IUser $user, $detailed = false, $for_interface = false) {
+		$result = parent::describe($user, $detailed, $for_interface);
+		
+		return $result;
+	}
+	
 	
 }

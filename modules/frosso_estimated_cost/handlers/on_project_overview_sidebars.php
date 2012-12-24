@@ -34,7 +34,8 @@
 		    				AngieApplication::INTERFACE_DEFAULT)
 		    		);
 		    $view->assign(array(
-		    		'milestones' => $milestones
+		    		'milestones' 	=> $milestones,
+		    		'logged_user' 	=> $user
 		    ));
 		  	$sidebars[] = array(
 			        'label' => lang('ETA for this project'),

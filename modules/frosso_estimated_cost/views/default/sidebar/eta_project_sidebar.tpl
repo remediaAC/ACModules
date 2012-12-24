@@ -42,15 +42,8 @@ color: green;
 		<abbr title="Stima inserita dall'utente">{$estimate_value}h</abbr>
 	{/if}
 	
-<span class="object_tracking" id="object_tracking_for_{$object->getId()}"></span>
-<script type="text/javascript">
-$('#object_tracking_for_{$object->getId()}').objectTime({
-    object: {$milestone|json nofilter},
-    show_label: false,
-    default_billable_status: true
-});
-</script>
-<img src="{image_url name="icons/12x12/edit.png" module=$smarty.const.ENVIRONMENT_FRAMEWORK}" class="icon_list_icon" alt="" />
+{object_estimate object=$object user=$logged_user show_label=false}
+
 </span>		
 </td>
 
