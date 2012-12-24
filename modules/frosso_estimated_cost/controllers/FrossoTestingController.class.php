@@ -10,8 +10,8 @@ class FrossoTestingController extends ReportsController {
 	function index() {
 		$mil = new RemediaMilestone(47985);
 
-// 		$defJobType = JobTypes::findById(1);
-// 		$mil->tracking()->setEstimate(2, $defJobType, "Commento", $this->logged_user);
+		$defJobType = JobTypes::findById(1);
+		$mil->tracking()->setEstimate(2, $defJobType, "Commento", $this->logged_user);
 
 		$mil->setFieldValue('custom_field_1', 94);
 // 		echo $mil->isModifiedField('custom_field_1');

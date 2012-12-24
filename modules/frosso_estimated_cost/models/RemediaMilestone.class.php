@@ -52,4 +52,23 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		return $this->tracking;
 	} // tracking
 	
+	
+	function getPercentsDone($based_on_tasks = true) {
+		return $based_on_tasks ? parent::getPercentsDone() : $this->customFields()->getValue('custom_field_1');
+	}
+	
+	function getRemainingTime() {
+		
+		$tempo_stimato 		= $this->tracking()->getEstimate()->getValue();
+		$tempo_impiegato 	= $this->tracking()->sumTime($user);
+		$completamento		= $this->customFields()->getValue('custom_field_1');
+		
+		if(!$completamento) return 0;
+		
+		return round(((float) (($tempo_impiegato) * ((float) 1-($completamento/100)))), 2);
+		
+		// TODO: nope
+		return round((float) (($tempo_stimato/$tempo_impiegato)/100) * $completamento, 2);
+	}
+	
 }

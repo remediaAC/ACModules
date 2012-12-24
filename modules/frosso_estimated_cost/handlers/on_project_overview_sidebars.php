@@ -16,9 +16,16 @@
    */
   function frosso_estimated_cost_handle_on_project_overview_sidebars(&$sidebars, Project &$project, User &$user) {
     if($user->canUseReports() || $project->isLeader($user)){
-	    $milestones = Milestones::findActiveByProject($project);
+	    $arguments = array(
+        	'conditions' => array(
+        			'project_id = ? AND type = ? AND state >= ? AND visibility >= ? AND completed_on IS NULL', 
+        			$project->getId(), 'Milestone', STATE_VISIBLE, VISIBILITY_NORMAL
+        			)
+      	);
+	    $milestones = DataManager::find($arguments, TABLE_PREFIX . 'project_objects', DataManager::CLASS_NAME_FROM_TABLE, 'RemediaMilestone');
 	    
 	    if(is_foreachable($milestones)) {
+	    	$result = array();
 		    $view = SmartyForAngie::getInstance()->createTemplate(
 		    		AngieApplication::getViewPath(
 		    				'eta_project_sidebar', 
