@@ -64,10 +64,8 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 
 		if(!$completamento) return 0;
 
-		return round(((float) (($tempo_impiegato) * ((float) 1-($completamento/100)))), 2);
+		return round(((float) (($tempo_impiegato/$completamento) * ((float) 100-($completamento)))), 2);
 
-		// TODO: nope
-		return round((float) (($tempo_stimato/$tempo_impiegato)/100) * $completamento, 2);
 	}
 
 	/**
