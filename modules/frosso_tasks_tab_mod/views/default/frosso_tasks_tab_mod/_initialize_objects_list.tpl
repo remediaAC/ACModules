@@ -1,4 +1,14 @@
 <script type="text/javascript">
+/* INIZIO FRosso Hack */
+function filtraNome(nome_completo) {
+	var pezzi = nome_completo.split(' ');
+	var risultato = pezzi[0][0]+'.';
+	for(i=1;i<pezzi.length;i++){
+		risultato+=' '+pezzi[i];
+	}
+	return risultato;
+}
+/* FINE FRosso Hack */
 $('#new_project_task').flyoutForm({
   'success_event' : 'task_created',
   'title' : App.lang('New Task')
@@ -12,6 +22,7 @@ $('#tasks').each(function() {
   var milestones_map = {$milestones|map nofilter};
   var labels_map = {$labels|map nofilter};
   var users_map = {$users|map nofilter};
+  var users_array = {$users|json nofilter};
   var priority_map = {$priority|map nofilter};
   var kanban_url = {$kanban_url|json nofilter};
   var reorder_url = '{assemble route=project_tasks_reorder project_slug=$active_project->getSlug()}';
@@ -122,10 +133,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
         'is_trashed'      : item['state'] == '1' ? 1 : 0,
         'is_archived'     : item['state'] == '2' ? 1 : 0,
         'label'           : item['label'],
-        /* INIZIO FRosso Hack */
-        'visibility'      : item['visibility'],
-        'assignee_name'	  : item['assignee_name']
-      	/* FINE FRosso Hack */
+        'visibility'      : item['visibility']
       };
 
       if(typeof(item['assignee']) == 'undefined') {
@@ -181,7 +189,8 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       row += '<span class="real_task_name">' + item['name'].clean() +'';
       
       // aggiungo il responsabile
-      row += '&nbsp;<strong>' + item['assignee_name'] + '</strong>';
+      if(item['assignee_id']!=0)
+    	  row += '&nbsp;<strong>' + filtraNome(users_array[item['assignee_id']]) + '</strong>';
       row += App.Wireframe.Utils.renderVisibilityIndicator(item['visibility'])  + ' ' + '</span></span></td><td class="task_options">';
       
       var color_class = 'mono';
