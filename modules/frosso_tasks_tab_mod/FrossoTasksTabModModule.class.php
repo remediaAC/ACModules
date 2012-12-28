@@ -38,6 +38,10 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	}
 	
 	function defineRoutes(){
+		
+		// Hijacked Route
+// 		Router::map('project_tasks', 'projects/:project_slug/tasks', array('controller' => 'frosso_tasks_tab_mod', 'action' => 'index'));
+		
   		Router::map('frosso_tasks_tab_route', 'projects/:project_slug/tasks-mod', array('controller' => 'frosso_tasks_tab_mod', 'action' => 'index'));
 	}
 	
