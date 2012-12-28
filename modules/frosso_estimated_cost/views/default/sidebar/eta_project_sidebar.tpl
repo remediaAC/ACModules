@@ -41,19 +41,42 @@ color: green;
 </td>
 <td>
 {if $object->getPercentsDone(false)}
-{$object->getPercentsDone(false)}%
+<span class="percent_value" id="percent_value_milestone_{$object->getId()}">{$object->getPercentsDone(false)}%</span>
 {else}
-0%
+<span class="percent_value" id="percent_value_milestone_{$object->getId()}">0%</span>
 {/if}
+<a href="{assemble route='frosso_ec_set_milestone_percent' project_slug=$object->getProject()->getSlug() milestone_id=$object->getId()}" title="Cambia questo valore" class="set_percent_completion">
+<img src="{image_url name="icons/12x12/edit.png" module=$smarty.const.ENVIRONMENT_FRAMEWORK}" id="edit_percent_icon_{$object->getId()}" class="icon_list_icon" alt="Edit value"  />
+</a>
 </td>
 <td>
-{$estimate_value+$summed_time_value}h
+{if $object->getPercentsDone(false)}
+<span id="sum_e_rem_{$object->getId()}" title="">{$object->getRemainingTime()+$summed_time_value}h</span>
+{else}
+<span id="sum_e_rem_{$object->getId()}" title="Impostare una percentuale di completamento">?</span>
+{/if} 
 </td>
 </tr>
 {/foreach}
 </tbody>
 </table>	
 
+<script type="text/javascript">
+$('.set_percent_completion').each(function(){
+	$(this).attr('href', App.extendUrl($(this).attr('href'), { async: 1 }) );
+	$(this).flyoutForm({
+        width: 400,
+        success: function (milestone) {
+            if (typeof (milestone) == "object" && milestone) {
+            	var id = milestone.id;
+            	$('#percent_value_milestone_'+id).text(milestone.custom_percent_complete+'%');
+            	$('#sum_e_rem_'+id).html((milestone.summed_time+milestone.remaining_time)+'h');
+            }
+        }
+    })
+	
+});
+</script>
 
 {/if}
 

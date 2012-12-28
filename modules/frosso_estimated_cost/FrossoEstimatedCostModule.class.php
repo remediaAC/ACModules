@@ -30,6 +30,8 @@ class FrossoEstimatedCostModule extends AngieModule {
 		Router::map('frosso_estimated_cost_reports', 'reports/frosso-ecr', array('controller' => 'frosso_estimated_cost_reports', 'action' => 'index'));
 		Router::map('frosso_testing_route', 'reports/frosso-test', array('controller' => 'frosso_testing', 'action' => 'index'));
 		
+		Router::map('frosso_ec_set_milestone_percent', 'projects/:project_slug/milestones/:milestone_id/percent/set', array('controller' => 'frosso_estimated_cost_reports', 'action' => 'set_percent'));
+		
 		// Tracking
 		if(AngieApplication::isModuleLoaded('tracking')) {
 			// prefisso, url, nome controller, nome modulo, parametri extra

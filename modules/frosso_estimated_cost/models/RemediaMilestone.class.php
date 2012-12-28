@@ -1,19 +1,19 @@
 <?php
 
 class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
-	
+
 	function __construct($id = null) {
 		$this->fields = array_merge($this->fields, array('custom_field_1', 'custom_field_2', 'custom_field_3'));
 		parent::__construct($id);
 	}
-	
+
 	/**
 	 * Cached search helper instance
 	 *
 	 * @var ITaskCustomFieldsImplementation
 	 */
 	private $custom_fields = false;
-	
+
 	/**
 	 * Return search heper instance
 	 *
@@ -23,17 +23,17 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		if($this->custom_fields === false) {
 			$this->custom_fields = new IMilestoneCustomFieldsImplementation($this);
 		} // if
-	
+
 		return $this->custom_fields;
 	} // custom_fields
-	
+
 	/**
 	 * Tracking helper
 	 *
 	 * @var ITrackingImplementation
 	 */
 	private $tracking = false;
-	
+
 	/**
 	 * Return tracking helper instance
 	 *
@@ -47,36 +47,36 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 				$this->tracking = new ITrackingImplementationStub($this);
 			} // if
 		} // if
-	
+
 		return $this->tracking;
 	} // tracking
-	
-	
+
+
 	function getPercentsDone($based_on_tasks = true) {
 		return $based_on_tasks ? parent::getPercentsDone() : $this->customFields()->getValue('custom_field_1');
 	}
-	
+
 	function getRemainingTime() {
-		
+
 		$tempo_stimato 		= $this->tracking()->getEstimate()->getValue();
 		$tempo_impiegato 	= $this->tracking()->sumTime($user);
 		$completamento		= $this->customFields()->getValue('custom_field_1');
-		
+
 		if(!$completamento) return 0;
-		
+
 		return round(((float) (($tempo_impiegato) * ((float) 1-($completamento/100)))), 2);
-		
+
 		// TODO: nope
 		return round((float) (($tempo_stimato/$tempo_impiegato)/100) * $completamento, 2);
 	}
-	
+
 	/**
 	 * Routing context parameters
 	 *
 	 * @var array
 	 */
 	private $routing_context_params = false;
-	
+
 	/**
 	 * Return routing context parameters
 	 *
@@ -85,14 +85,14 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function getRoutingContextParams() {
 		if($this->routing_context_params === false) {
 			$this->routing_context_params = array(
-					'project_slug' => $this->getProject()->getSlug(), 
+					'project_slug' => $this->getProject()->getSlug(),
 					'milestone_id' => $this->getId()
-					);
+			);
 		} // if
-	
+
 		return $this->routing_context_params;
 	} // getRoutingContextParams
-	
+
 	/**
 	 * Return routing context name
 	 *
@@ -101,7 +101,7 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function getRoutingContext() {
 		return 'project_milestone';
 	} // getRoutingContext
-	
+
 	/**
 	 * Return array or property => value pairs that describes this object
 	 *
@@ -115,9 +115,40 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	 */
 	function describe(IUser $user, $detailed = false, $for_interface = false) {
 		$result = parent::describe($user, $detailed, $for_interface);
+
+		$result['id'] = $this->getId();
 		
+		if($detailed){
+			$result['custom_percent_complete'] = $this->getPercentsDone(false);
+			$result['remaining_time'] = $this->getRemainingTime();
+			$result['summed_time'] = $this->tracking()->sumTime(Authentication::getLoggedUser());
+		}
+
 		return $result;
 	}
-	
-	
+
+	function describeForApi(IUser $user, $detailed = false) {
+		$result = parent::describeForApi($user, $detailed);
+		
+		$result['id'] = $this->getId();
+		
+		if($detailed){
+			$result['custom_percent_complete'] = $this->getPercentsDone(false);
+			$result['remaining_time'] = $this->getRemainingTime();
+			$result['summed_time'] = $this->tracking()->sumTime(Authentication::getLoggedUser());
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Set percent completion custom field value.
+	 * @param int $value 0 <= $value <= 100
+	 */
+	function setPercentDone($value) {
+		if($value < 0 || $value > 100)
+			return null;
+		return $this->customFields()->setValue('custom_field_1', $value);
+	}
+
 }
