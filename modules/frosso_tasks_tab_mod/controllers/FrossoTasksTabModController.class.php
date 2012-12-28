@@ -103,6 +103,8 @@ class FrossoTasksTabModController extends TasksPlusController {
 							'object_id' => $task['id'],
 					));
 	
+					$taskObj = new Task($task['id']);
+					
 					$result[] = array(
 							'id'                => $task['id'],
 							'name'              => $task['name'],
@@ -119,8 +121,8 @@ class FrossoTasksTabModController extends TasksPlusController {
 							'delegated_by_id'   => $task['delegated_by_id'],
 							'total_subtasks'    => $total_subtasks,
 							'open_subtasks'     => $open_subtasks,
-							'estimated_time'    => $task['estimated_time'] 	? $task['estimated_time'] 	: 0,
-							'tracked_time'      => $task['tracked_time'] 	? $task['tracked_time'] 	: 0,
+							'estimated_time'    => $taskObj->tracking()->canAdd($user) 	? $task['estimated_time'] 	: 0,
+							'tracked_time'      => $taskObj->tracking()->canAdd($user) 	? $task['tracked_time'] 	: 0,
 							'is_favorite'       => Favorites::isFavorite(array('Task', $task['id']), $user),
 							'is_archived'       => $task['state'] == STATE_ARCHIVED ? 1 : 0,
 							'visibility'        => $task['visibility'],
