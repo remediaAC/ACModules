@@ -34,9 +34,9 @@ color: green;
 </td>
 <td>
 {if $object->getPercentsDone(false)}
-{$object->getRemainingTime()}h
+<span id="rem_time_{$object->getId()}">{$object->getRemainingTime()}h</span>
 {else}
-&#8734;
+<span id="rem_time_{$object->getId()}">&#8734;</span>
 {/if} 
 </td>
 <td>
@@ -70,7 +70,16 @@ $('.set_percent_completion').each(function(){
             if (typeof (milestone) == "object" && milestone) {
             	var id = milestone.id;
             	$('#percent_value_milestone_'+id).text(milestone.custom_percent_complete+'%');
-            	$('#sum_e_rem_'+id).html((milestone.summed_time+milestone.remaining_time)+'h');
+            	if(milestone.custom_percent_complete>0){
+            		$('#sum_e_rem_'+id).html((milestone.summed_time+milestone.remaining_time)+'h');
+            		$('#sum_e_rem_'+id).attr('title','');
+            		$('#rem_time_'+id).html((milestone.remaining_time)+'h');
+            	}else{
+            		$('#sum_e_rem_'+id).html('?');
+            		$('#sum_e_rem_'+id).attr('title','Impostare una percentuale di completamento');
+            		$('#rem_time_'+id).html('&#8734;');
+            	}
+            	
             }
         }
     })
