@@ -15,23 +15,15 @@ class MilestonesTrackingController extends MilestonesController {
 	 * @var string
 	 */
 	protected $active_module = FROSSO_EC_MODULE;
-	
-	
+
+
 	/**
 	 * Object tracking controller delegate
 	 *
 	 * @var ObjectTrackingController
 	 */
 	protected $object_tracking_delegate;
-	
-	
-	/**
-	 * Milestone attiva
-	 * 
-	 * @var RemediaMilestone
-	 */
-	protected $active_milestone;
-	
+
 	/**
 	 * Construct controller
 	 *
@@ -48,29 +40,162 @@ class MilestonesTrackingController extends MilestonesController {
 
 		} // if
 	} // __construct
-	
+
 	function __before() {
 		parent::__before();
-		
+
 		$milestone_id = $this->request->getId('milestone_id');
 		if($milestone_id) {
 			$this->active_milestone = new RemediaMilestone($milestone_id);
 		} // if
 
-		if($this->active_milestone && $this->active_milestone instanceof Milestone) {
+		if($this->active_milestone && $this->active_milestone instanceof RemediaMilestone) {
 			if (!$this->active_milestone->isAccessible()) {
 				$this->response->notFound();
 			} // if
 		}else{
-			$this->response->notFound();
+			$this->active_milestone = new RemediaMilestone();
+			$this->active_milestone->setProject($this->active_project);
 		}
-		
+
+		$this->smarty->assign(array(
+				'active_milestone' => $this->active_milestone,
+		));
+
 		if($this->object_tracking_delegate instanceof ObjectTrackingController) {
 			$this->object_tracking_delegate->__setProperties(array(
 					'active_project' => &$this->active_project,
 					'active_tracking_object' => &$this->active_milestone,
 			));
 		} // if
+
 	}
-	
+
+	private function setCustomField(){
+		try {
+			DB::beginWork('Settimg milestone CF @ ' . __CLASS__);
+
+			DB::commit('Milestone CF saved @ ' . __CLASS__);
+
+		} catch (Exception $e) {
+			DB::rollback('Failed to save milestone CF @ ' . __CLASS__);
+
+			$this->response->exception($e);
+		}
+	}
+
+	function edit(){
+// 		$this->active_milestone = new Milestone($this->active_milestone->getId());
+		parent::edit();
+// 		$this->active_milestone = new RemediaMilestone($this->active_milestone->getId());
+		if($this->request->isAsyncCall() || $this->request->isMobileDevice() || ($this->request->isApiCall() && $this->request->isSubmitted())) {
+			if($this->active_milestone->isLoaded()) {
+				if($this->active_milestone->canEdit($this->logged_user)) {
+					$milestone_data = $this->request->post('milestone', array(
+							'name' => $this->active_milestone->getName(),
+							'body' => $this->active_milestone->getBody(),
+							'start_on' => $this->active_milestone->getStartOn(),
+							'due_on' => $this->active_milestone->getDueOn(),
+							'priority' => $this->active_milestone->getPriority(),
+							'assignee_id' => $this->active_milestone->getAssigneeId(),
+							'other_assignees' => $this->active_milestone->assignees()->getOtherAssigneeIds(),
+							'custom_field_1' => $this->active_milestone->getCustomField1(),
+							'custom_field_2' => $this->active_milestone->getCustomField2(),
+							'custom_field_3' => $this->active_milestone->getCustomField3()
+					));
+
+					if(AngieApplication::isModuleLoaded('tracking')) {
+						$milestone_data['estimate'] = $this->active_milestone->tracking()->getEstimate() instanceof Estimate ? $this->active_milestone->tracking()->getEstimate()->getValue() : null;
+						$milestone_data['estimate_job_type_id'] = $this->active_milestone->tracking()->getEstimate() instanceof Estimate ? $this->active_milestone->tracking()->getEstimate()->getJobTypeId() : null;
+					} // if
+
+					$this->response->assign('milestone_data', $milestone_data);
+
+					if($this->request->isSubmitted()) {
+						$current_assignee = $this->active_milestone->assignees()->getAssignee();
+
+						try {
+							DB::beginWork('Updatings milestone @ ' . __CLASS__);
+
+							$this->active_milestone->setAttributes($milestone_data);
+							$this->active_milestone->save();
+
+							DB::commit('Milestone updated @ ' . __CLASS__);
+
+							$this->active_milestone->assignees()->notifyOnReassignment($current_assignee, $this->active_milestone->assignees()->getAssignee(), $this->logged_user);
+
+							if ($this->request->isPageCall()) {
+								$this->flash->success('Milestone ":name" has been updated', array('name' => $this->active_milestone->getName()));
+								$this->response->redirectToUrl($this->active_milestone->getViewUrl());
+							} else {
+								$this->response->respondWithData($this->active_milestone, array(
+										'as' => 'milestone',
+										'detailed' => true,
+								));
+							} //if
+						} catch(Exception $e) {
+							DB::rollback('Failed to update milestone @ ' . __CLASS__);
+							$this->response->exception($e);
+						} // try
+					} // if
+
+				} else {
+					$this->response->forbidden();
+				} // if
+			} else {
+				$this->response->notFound();
+			} // if
+		} else {
+			$this->response->badRequest();
+		} // if
+	} // edit
+
+
+	function add() {
+		parent::add();
+
+		if($this->request->isAsyncCall() || $this->request->isMobileDevice() || ($this->request->isApiCall() && $this->request->isSubmitted())) {
+			if(Milestones::canAdd($this->logged_user, $this->active_project)) {
+				$milestone_data = $this->request->post('milestone');
+				$this->smarty->assign('milestone_data', $milestone_data);
+
+				if($this->request->isSubmitted()) {
+					try {
+						DB::beginWork('Adding milestone CF @ ' . __CLASS__);
+							
+						// 					$this->setCustomField();
+							
+						DB::commit('Milestone CF added @ ' . __CLASS__);
+
+						if ($this->request->isPageCall()) {
+							$this->flash->success('Milestone ":name" has been created', array('name' => $this->active_milestone->getName()));
+							$this->response->redirectToUrl($this->active_milestone->getViewUrl());
+						} else {
+							$this->response->respondWithData($this->active_milestone, array(
+									'as' => 'milestone',
+									'detailed' => true,
+							));
+						} // if
+					} catch(Exception $e) {
+						DB::rollback('Failed to add CF milestone @ ' . __CLASS__);
+
+						if ($this->request->isPageCall()) {
+							$this->smarty->assign('errors', $e);
+						} else {
+							$this->response->exception($e);
+						} // if
+					} // try
+				} // if
+			} else {
+				$this->response->forbidden();
+			} // if
+		} else {
+			$this->response->badRequest();
+		} // if
+	}
+
+	function update_milestone() {
+		parent::update_milestone();
+	}
+
 }

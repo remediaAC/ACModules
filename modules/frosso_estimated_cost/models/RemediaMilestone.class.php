@@ -53,14 +53,14 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 
 
 	function getPercentsDone($based_on_tasks = true) {
-		return $based_on_tasks ? parent::getPercentsDone() : $this->customFields()->getValue('custom_field_1');
+		return $based_on_tasks ? parent::getPercentsDone() : $this->getCustomField1();
 	}
 
 	function getRemainingTime() {
 
 		$tempo_stimato 		= $this->tracking()->getEstimate()->getValue();
 		$tempo_impiegato 	= $this->tracking()->sumTime($user);
-		$completamento		= $this->customFields()->getValue('custom_field_1');
+		$completamento		= $this->getCustomField1();
 
 		if(!$completamento) return 0;
 
@@ -115,7 +115,7 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		$result = parent::describe($user, $detailed, $for_interface);
 
 		$result['id'] = $this->getId();
-		
+
 		if($detailed){
 			$result['custom_percent_complete'] = $this->getPercentsDone(false);
 			$result['remaining_time'] = $this->getRemainingTime();
@@ -127,9 +127,9 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 
 	function describeForApi(IUser $user, $detailed = false) {
 		$result = parent::describeForApi($user, $detailed);
-		
+
 		$result['id'] = $this->getId();
-		
+
 		if($detailed){
 			$result['custom_percent_complete'] = $this->getPercentsDone(false);
 			$result['remaining_time'] = $this->getRemainingTime();
@@ -147,6 +147,27 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		if($value < 0 || $value > 100)
 			return null;
 		return $this->customFields()->setValue('custom_field_1', $value);
+	}
+
+	function validate($errors){
+		parent::validate($errors);
+		if($this->validatePresenceOf('custom_field_1')){
+			if($this->validateMaxValueOf('custom_field_1', 100) && 	$this->validateMinValueOf('custom_field_1', 0)){
+				$errors->addError(lang('Percent complete value must be between 0 and 100'), 'custom_field_1');
+			}
+		}
+	}
+
+	function save() {
+		// hack
+		//if($this->isNew()){
+			//DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'RemediaMilestone', $this->getId());
+		//}
+		$result = parent::save();
+		// hack
+// 		DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'Milestone', $this->getId());
+		
+		return $result;
 	}
 
 }
