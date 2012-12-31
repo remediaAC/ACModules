@@ -1,0 +1,1 @@
+{include file=get_view_path('view', 'tasks', $smarty.const.TASKS_MODULE)}

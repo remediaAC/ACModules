@@ -41,7 +41,7 @@ class FrossoTasksTabModController extends TasksPlusController {
 		//$project_tabs = $this->active_project->getTabs($this->logged_user, AngieApplication::INTERFACE_DEFAULT);
 	
 	
-		$this->wireframe->tabs->setCurrentTab('tasks_mod');
+		$this->wireframe->tabs->setCurrentTab('tasks');
 	
 		$this->wireframe->breadcrumbs->add('frosso_tasks_tab_route', lang('TasksMod'), Router::assemble('frosso_tasks_tab_route', array('project_slug' => $this->active_project->getSlug())));
 	
@@ -53,6 +53,15 @@ class FrossoTasksTabModController extends TasksPlusController {
 		$this->response->assign(array(
 				'tasks' => self::findForObjectsList($this->active_project, $this->logged_user)
 		));
+	}
+	
+	function view() {
+		parent::view();
+		//TODO: cambiare il template
+	}
+	
+	function edit() {
+		parent::edit();
 	}
 	
 	/**
@@ -81,11 +90,9 @@ class FrossoTasksTabModController extends TasksPlusController {
 						o.created_on,
 						o.updated_on,
 						o.due_on,
-						u.first_name,
-						u.last_name,
 						es.estimated_time,
 						rec.tracked_time
-					FROM " . TABLE_PREFIX . "project_objects o LEFT JOIN " . TABLE_PREFIX . "users u ON(o.assignee_id=u.id)
+					FROM " . TABLE_PREFIX . "project_objects o 
 					LEFT JOIN (SELECT parent_id, value AS estimated_time FROM " . TABLE_PREFIX . "estimates GROUP BY parent_id ORDER BY created_on DESC) es ON(o.id=es.parent_id)
 					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state = ? GROUP BY(parent_id)) rec ON(o.id=rec.parent_id)
 					WHERE o.type = 'Task' AND o.project_id = ? AND o.state = ? AND o.visibility >= ?"
