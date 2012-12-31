@@ -9,7 +9,7 @@
 <th>Tempo impiegato su tempo stimato</th>
 <th>Tempo rimanente</th>
 <th>Percentuale completamento</th>
-<th>Previsione completamento</th>
+<th>Previsione globale</th>
 </tr>
 </thead>
 <tbody>
