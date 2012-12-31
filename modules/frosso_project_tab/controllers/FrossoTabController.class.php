@@ -85,6 +85,7 @@ class FrossoTabController extends ProjectController{
                 
         $this->response->assign('tasks', $tasks);
         $this->response->assign('map', $milestones);
+        $this->response->assign('active_user', $this->logged_user);
 		
 	}
 	

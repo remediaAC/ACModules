@@ -15,6 +15,7 @@
 <td class="cella_data_scadenza {$task.stato}" width="130px"><span title="Data di scadenza">{$task.due_on}</span></td>
 <td class="cella_data_modifica" width="150px"><span title="Data ultima modifica">{$task.updated_on}</span></td>
 <td class="cella_azioni" width="30px">
+{if AngieApplication::isModuleLoaded('tracking') and Tasks::findById($task.id)->tracking()->canEstimate($active_user)}
 <span class="object_tracking" id="object_tracking_for_{$task.id}"></span>
 <script type="text/javascript">
 $('#object_tracking_for_{$task.id}').objectTime({
@@ -23,5 +24,6 @@ $('#object_tracking_for_{$task.id}').objectTime({
     default_billable_status: true
 });
 </script>
+{/if}
 </td>
 </tr>
