@@ -16,7 +16,7 @@
 {foreach from=$milestones item=object}
 <tr>
 <td>
-	<a href="{assemble route='project_milestone' project_slug=$object->getProject()->getSlug() milestone_id=$object->getId()}">{$object->getName()}</a>
+	<a href="{assemble route='project_milestone' project_slug=$object->getProject()->getSlug() milestone_id=$object->getId()}" class="quick_view_item">{$object->getName()}</a>
 </td>
 <td>
 {assign var=estimate_value value=$object->tracking()->getEstimate()->getValue()}

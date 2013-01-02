@@ -168,6 +168,7 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		// hack
 		DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'Milestone', $this->getId());
 		DB::execute('UPDATE ' . TABLE_PREFIX . 'project_objects SET type = ? WHERE type = ?', 'Milestone', 'RemediaMilestone');
+		DB::execute('UPDATE ' . TABLE_PREFIX . 'modification_logs SET parent_type = ? WHERE parent_type = ?', 'Milestone', 'RemediaMilestone');
 		DB::commit('Milestone saved @ ' . __CLASS__);
 		
 		return $result;
