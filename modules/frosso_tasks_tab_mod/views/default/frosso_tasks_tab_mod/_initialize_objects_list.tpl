@@ -2,6 +2,8 @@
 /* INIZIO FRosso Hack */
 function filtraNome(nome_completo) {
 	var pezzi = nome_completo.split(' ');
+	if(pezzi.length < 2)
+		return nome_completo;
 	var risultato = pezzi[0][0]+'.';
 	for(i=1;i<pezzi.length;i++){
 		risultato+=' '+pezzi[i];
