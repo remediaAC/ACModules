@@ -83,9 +83,9 @@ class MilestonesTrackingController extends MilestonesController {
 	}
 
 	function edit(){
-// 		$this->active_milestone = new Milestone($this->active_milestone->getId());
-// 		parent::edit();
-// 		$this->active_milestone = new RemediaMilestone($this->active_milestone->getId());
+		// 		$this->active_milestone = new Milestone($this->active_milestone->getId());
+		// 		parent::edit();
+		// 		$this->active_milestone = new RemediaMilestone($this->active_milestone->getId());
 
 		if($this->request->isAsyncCall() || $this->request->isMobileDevice() || ($this->request->isApiCall() && $this->request->isSubmitted())) {
 			if($this->active_milestone->isLoaded()) {
@@ -106,7 +106,7 @@ class MilestonesTrackingController extends MilestonesController {
 								'custom_field_2' => $this->active_milestone->getCustomField2(),
 								'custom_field_3' => $this->active_milestone->getCustomField3(),
 						);
-						
+
 						if(AngieApplication::isModuleLoaded('tracking')) {
 							$milestone_data['estimate'] = $this->active_milestone->tracking()->getEstimate() instanceof Estimate ? $this->active_milestone->tracking()->getEstimate()->getValue() : null;
 							$milestone_data['estimate_job_type_id'] = $this->active_milestone->tracking()->getEstimate() instanceof Estimate ? $this->active_milestone->tracking()->getEstimate()->getJobTypeId() : null;
@@ -142,7 +142,7 @@ class MilestonesTrackingController extends MilestonesController {
 							} // if
 
 							DB::commit('Milestone updated @ ' . __CLASS__);
-							
+
 							$this->active_milestone->assignees()->notifyOnReassignment($current_assignee, $this->active_milestone->assignees()->getAssignee(), $this->logged_user);
 
 							if ($this->request->isPageCall()) {
@@ -173,8 +173,6 @@ class MilestonesTrackingController extends MilestonesController {
 
 
 	function add() {
-		parent::add();
-
 		if($this->request->isAsyncCall() || $this->request->isMobileDevice() || ($this->request->isApiCall() && $this->request->isSubmitted())) {
 			if(Milestones::canAdd($this->logged_user, $this->active_project)) {
 				$milestone_data = $this->request->post('milestone');
@@ -182,23 +180,70 @@ class MilestonesTrackingController extends MilestonesController {
 
 				if($this->request->isSubmitted()) {
 					try {
-						DB::beginWork('Adding milestone CF @ ' . __CLASS__);
-							
-						// 					$this->setCustomField();
-							
-						DB::commit('Milestone CF added @ ' . __CLASS__);
+						DB::beginWork('Creating milestone @ ' . __CLASS__);
+
+						$this->active_milestone = new RemediaMilestone();
+
+						$this->active_milestone->setAttributes($milestone_data);
+
+						$start_on = $this->active_milestone->getStartOn();
+						if ($start_on instanceof DateValue) {
+							if (Globalization::isWeekend($start_on) || Globalization::isDayOff($start_on)) {
+								throw new Error(lang('Start date needs to be set on working day'));
+							} //if
+						} //if
+
+						$due_on = $this->active_milestone->getDueOn();
+						if ($due_on instanceof DateValue){
+							if (Globalization::isWeekend($due_on) || Globalization::isDayOff($due_on)) {
+								throw new Error(lang('Due date needs to be set on working day'));
+							} //if
+						} //if
+
+						$this->active_milestone->setProjectId($this->active_project->getId());
+						$this->active_milestone->setCreatedBy($this->logged_user);
+						$this->active_milestone->setState(STATE_VISIBLE);
+						$this->active_milestone->setVisibility(VISIBILITY_NORMAL);
+
+						$this->active_milestone->save();
+						
+						/* INIZIO frosso hack */
+						if(AngieApplication::isModuleLoaded('tracking') && TrackingObjects::canAdd($this->logged_user, $this->active_project)) {
+							$estimate_value = isset($milestone_data['estimate_value']) && $milestone_data['estimate_value'] ? (float) $milestone_data['estimate_value'] : null;
+							$estimate_job_type = isset($milestone_data['estimate_job_type_id']) && $milestone_data['estimate_job_type_id'] ? JobTypes::findById($milestone_data['estimate_job_type_id']) : null;
+							$estimate_comment = isset($milestone_data['estimate_comment']) ? $milestone_data['estimate_comment'] : null;
+								
+							if($estimate_value > 0 && $estimate_job_type instanceof JobType) {
+								$this->active_milestone->tracking()->setEstimate($estimate_value, $estimate_job_type, $estimate_comment, $this->logged_user);
+							} else {
+								if($this->active_milestone->tracking()->getEstimate() instanceof Estimate) {
+									$this->active_milestone->tracking()->setEstimate($estimate_value, $estimate_job_type, $estimate_comment, $this->logged_user);
+								} // if
+							} // if
+						} // if
+						/* FINE frosso hack */
+
+						$this->active_milestone->subscriptions()->set(array_unique(array_merge(
+								(array) $this->logged_user->getId(),
+								(array) $this->active_project->getLeaderId(),
+								(array) array_var($milestone_data, 'subscribers', array())
+						)), false);
+
+						DB::commit('Milestone created @ ' . __CLASS__);
+
+						$this->logged_user->notifier()->notifySubscribers($this->active_milestone, 'system/new_milestone');
 
 						if ($this->request->isPageCall()) {
 							$this->flash->success('Milestone ":name" has been created', array('name' => $this->active_milestone->getName()));
 							$this->response->redirectToUrl($this->active_milestone->getViewUrl());
 						} else {
-							$this->response->respondWithData($this->active_milestone, array(
+							$this->response->respondWithData(new Milestone($this->active_milestone->getId()), array(
 									'as' => 'milestone',
 									'detailed' => true,
 							));
 						} // if
 					} catch(Exception $e) {
-						DB::rollback('Failed to add CF milestone @ ' . __CLASS__);
+						DB::rollback('Failed to create milestone @ ' . __CLASS__);
 
 						if ($this->request->isPageCall()) {
 							$this->smarty->assign('errors', $e);
