@@ -33,9 +33,9 @@ class FrossoEstimatedCostModule extends AngieModule {
 		Router::map('frosso_ec_set_milestone_percent', 'projects/:project_slug/milestones/:milestone_id/percent/set', array('controller' => 'frosso_estimated_cost_reports', 'action' => 'set_percent'));
 		
 		// Hijacked Routes
-// 		Router::map('project_milestones_add', 'projects/:project_slug/milestones/add', array('controller' => 'milestones_tracking', 'action' => 'add'));
-// 		Router::map('project_milestone_edit', 'projects/:project_slug/milestones/:milestone_id/edit', array('controller' => 'milestones_tracking', 'action' => 'edit'), array('milestone_id' => Router::MATCH_ID));
-// 		Router::map('project_object_update_milestone', 'projects/:project_slug/objects/:object_id/update-milestone', array('controller' => 'milestones_tracking', 'action' => 'update_milestone'), array('object_id' => Router::MATCH_ID));
+		Router::map('project_milestones_add', 'projects/:project_slug/milestones/add', array('controller' => 'milestones_tracking', 'action' => 'add'));
+		Router::map('project_milestone_edit', 'projects/:project_slug/milestones/:milestone_id/edit', array('controller' => 'milestones_tracking', 'action' => 'edit'), array('milestone_id' => Router::MATCH_ID));
+		Router::map('project_object_update_milestone', 'projects/:project_slug/objects/:object_id/update-milestone', array('controller' => 'milestones_tracking', 'action' => 'update_milestone'), array('object_id' => Router::MATCH_ID));
 		
 		// Tracking
 		if(AngieApplication::isModuleLoaded('tracking')) {

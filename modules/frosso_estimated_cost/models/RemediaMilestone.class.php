@@ -146,13 +146,13 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function setPercentDone($value) {
 		if($value < 0 || $value > 100)
 			return null;
-		return $this->customFields()->setValue('custom_field_1', $value);
+		return $this->setCustomField1($value);
 	}
 
 	function validate($errors){
 		parent::validate($errors);
 		if($this->validatePresenceOf('custom_field_1')){
-			if($this->validateMaxValueOf('custom_field_1', 100) && 	$this->validateMinValueOf('custom_field_1', 0)){
+			if($this->getCustomField1() < 0 || $this->getCustomField1() > 100){
 				$errors->addError(lang('Percent complete value must be between 0 and 100'), 'custom_field_1');
 			}
 		}
@@ -161,11 +161,13 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function save() {
 		// hack
 		//if($this->isNew()){
-			//DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'RemediaMilestone', $this->getId());
+		DB::beginWork('Saving Milestone @ ' . __CLASS__);
+		DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'RemediaMilestone', $this->getId());
 		//}
 		$result = parent::save();
 		// hack
-// 		DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'Milestone', $this->getId());
+		DB::execute('UPDATE ' . TABLE_PREFIX . 'object_contexts SET parent_type = ? WHERE parent_id = ?', 'Milestone', $this->getId());
+		DB::commit('Milestone saved @ ' . __CLASS__);
 		
 		return $result;
 	}
