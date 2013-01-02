@@ -22,7 +22,7 @@
 {assign var=estimate_value value=$object->tracking()->getEstimate()->getValue()}
 {assign var=summed_time_value value=$object->tracking()->sumTime($user)}
 <span id="milestone_estimated_container_id_{$object->getId()}" style="
-{if $estimate_value lte $summed_time_value}
+{if $estimate_value lt $summed_time_value}
 color: red;
 {else}
 color: green;
