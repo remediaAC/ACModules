@@ -1,1 +1,1 @@
-{include file=get_view_path('edit', 'tasks', $smarty.const.TASKS_MODULE)}
+{include file=get_view_path('edit', 'tasks_plus', $smarty.const.TASKS_PLUS_MODULE)}
