@@ -69,19 +69,6 @@ class MilestonesTrackingController extends MilestonesController {
 
 	}
 
-	private function setCustomField(){
-		try {
-			DB::beginWork('Settimg milestone CF @ ' . __CLASS__);
-
-			DB::commit('Milestone CF saved @ ' . __CLASS__);
-
-		} catch (Exception $e) {
-			DB::rollback('Failed to save milestone CF @ ' . __CLASS__);
-
-			$this->response->exception($e);
-		}
-	}
-
 	function edit(){
 		// 		$this->active_milestone = new Milestone($this->active_milestone->getId());
 		// 		parent::edit();
