@@ -191,6 +191,10 @@ class IMilestoneTrackingImplementation extends ITrackingImplementation {
 		return $this->getEstimate();
 	}
 	
+	/**
+	 * Returns tasks summed time
+	 * @see ITrackingImplementation::sumTime()
+	 */
 	function sumTime($user) {
 		
 		$tasks = Tasks::findByMilestone($this->object);

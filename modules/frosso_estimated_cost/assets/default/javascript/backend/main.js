@@ -76,3 +76,16 @@ App.Inspector.Properties.MilestoneCustomComplete = function (object, client_inte
     })
 };
 
+App.Inspector.Properties.MilestoneEstimation = function (settings) {
+	var wrapper = $(this);
+	wrapper.html("<span id='milestone_estimated_container_id_"+settings['object_id']+"' sum_time='"+settings['summed_time']+"'>");
+	wrapper.append(settings['summed_time']+"h di ")
+		.append("<span id='milestone_estimate_"+settings['object_id']+"'></span></span>");
+	$("#milestone_estimate_"+settings['object_id']).objectEstimateIcon(settings);
+	if(settings['summed_time'] > settings['value']) {
+		wrapper.css('color', 'red');
+	} else {
+		wrapper.css('color', 'green');
+	}
+};
+
