@@ -51,6 +51,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 		EventsManager::listen('on_project_overview_sidebars', 'on_project_overview_sidebars');
 		EventsManager::listen('on_before_object_validation', 'on_before_object_validation');
 		EventsManager::listen('on_after_object_save', 'on_after_object_save');
+		EventsManager::listen('on_object_inspector', 'on_object_inspector');
 	}
 	
 	function install(){

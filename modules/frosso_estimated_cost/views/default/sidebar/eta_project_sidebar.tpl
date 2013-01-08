@@ -45,7 +45,7 @@ color: green;
 {else}
 <span class="percent_value" id="percent_value_milestone_{$object->getId()}">0%</span>
 {/if}
-<a href="{assemble route='frosso_ec_set_milestone_percent' project_slug=$object->getProject()->getSlug() milestone_id=$object->getId()}" title="Cambia questo valore" class="set_percent_completion">
+<a href="{assemble route='frosso_ec_set_milestone_percent' project_slug=$object->getProject()->getSlug() milestone_id=$object->getId()}" title="Cambia questo valore" class="set_milestone_percent_completion">
 <img src="{image_url name="icons/12x12/edit.png" module=$smarty.const.ENVIRONMENT_FRAMEWORK}" id="edit_percent_icon_{$object->getId()}" class="icon_list_icon" alt="Edit value"  />
 </a>
 </td>
@@ -62,29 +62,31 @@ color: green;
 </table>	
 
 <script type="text/javascript">
-$('.set_percent_completion').each(function(){
-	$(this).attr('href', App.extendUrl($(this).attr('href'), { async: 1 }) );
-	$(this).flyoutForm({
-        width: 400,
-        success: function (milestone) {
-            if (typeof (milestone) == "object" && milestone) {
-            	var id = milestone.id;
-            	$('#percent_value_milestone_'+id).text(milestone.custom_percent_complete+'%');
-            	if(milestone.custom_percent_complete>0){
-            		$('#sum_e_rem_'+id).html((milestone.summed_time+milestone.remaining_time)+'h');
-            		$('#sum_e_rem_'+id).attr('title','');
-            		$('#rem_time_'+id).html((milestone.remaining_time)+'h');
-            	}else{
-            		$('#sum_e_rem_'+id).html('?');
-            		$('#sum_e_rem_'+id).attr('title','Impostare una percentuale di completamento');
-            		$('#rem_time_'+id).html('&#8734;');
-            	}
-            	
-            }
-        }
-    })
-	
-});
+$(document).ready(function(){
+	$('.set_milestone_percent_completion').each(function(){
+		$(this).attr('href', App.extendUrl($(this).attr('href'), { async: 1 }) );
+		$(this).flyoutForm({
+	        width: 400,
+	        success: function (milestone) {
+	            if (typeof (milestone) == "object" && milestone) {
+	            	var id = milestone.id;
+	            	$('#percent_value_milestone_'+id).text(milestone.custom_percent_complete+'%');
+	            	if(milestone.custom_percent_complete>0){
+	            		$('#sum_e_rem_'+id).html((milestone.summed_time+milestone.remaining_time)+'h');
+	            		$('#sum_e_rem_'+id).attr('title','');
+	            		$('#rem_time_'+id).html((milestone.remaining_time)+'h');
+	            	}else{
+	            		$('#sum_e_rem_'+id).html('?');
+	            		$('#sum_e_rem_'+id).attr('title','Impostare una percentuale di completamento');
+	            		$('#rem_time_'+id).html('&#8734;');
+	            	}
+	            	
+	            }
+	        }
+	    })
+		
+	});
+	});
 </script>
 
 {/if}

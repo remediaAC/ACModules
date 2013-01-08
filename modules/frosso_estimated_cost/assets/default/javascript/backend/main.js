@@ -53,3 +53,26 @@ jQuery.fn.objectEstimateIcon = function (s) {
         }
     })
 };
+
+App.Inspector.Properties.MilestoneCustomComplete = function (object, client_interface, route) {
+	var wrapper = $(this);
+	wrapper.html("");
+	var img = App.Wireframe.Utils.imageUrl('icons/12x12/edit.png', 'environment');
+	var link = $("<a href='"+route+"' class='set_milestone_percent_completion'><img src='"+img+"' /></a>");
+	console.log(object);
+	var value = $("<span id='percent_value_milestone_"+object.id+"'>"+object.custom_fields.custom_field_1.value+"%</span>");
+	wrapper.append(value);
+	wrapper.append(" ");
+	wrapper.append(link);
+	link.attr('href', App.extendUrl($(this).attr('href'), { async: 1 }) );
+	link.flyoutForm({
+        width: 400,
+        success: function (milestone) {
+            if (typeof (milestone) == "object" && milestone) {
+            	var id = milestone.id;
+            	$('#percent_value_milestone_'+id).text(milestone.custom_percent_complete+'%');            	
+            }
+        }
+    })
+};
+
