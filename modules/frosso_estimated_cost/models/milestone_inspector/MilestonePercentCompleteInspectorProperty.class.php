@@ -23,8 +23,6 @@
  	} // __construct
  	
  	function render() {
-//  		return "alert('".$this->object->getPercentsDone(false)."')";
-
  		return '(function (field, object, client_interface) {
  				var obj = '.JSON::encode($this->object).';
  				var route = "'.Router::assemble("frosso_ec_set_milestone_percent", 
