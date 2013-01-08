@@ -102,7 +102,7 @@ class FrossoController extends MilestoneTasksController{
 					//scorro tutto l'array dei risultati per ottenere la riga con il risultato corretto
 					if($row['id'] == $task['id']){
 						$nuovo_ritorno[$chiave]['assignee_id'] = $row['assignee_id'] ? $assegnatari_array[$row['assignee_id']] : null;
-						$nuovo_ritorno[$chiave]['updated_on'] = $row['updated_on'] ? $row['updated_on'] : $row['created_on'];
+						$nuovo_ritorno[$chiave]['updated_on'] = $row['updated_on'] ? datetimeval($row['updated_on']) : $row['created_on'];
 						
 					}
 				}

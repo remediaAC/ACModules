@@ -159,19 +159,19 @@
 		/*
 		* Inizio FRosso Hack
 		*/
-		var asd;
+		var assignee_line;
 		if(task['assignee_id'] != null && task['assignee_id'] != 'null'){
-			asd = App.Wireframe.Utils.userLink(task['assignee_id']);
+			assignee_line = App.Wireframe.Utils.userLink(task['assignee_id']);
 		}else{
-			asd = App.lang('not assigned');
+			assignee_line = App.lang('not assigned');
 		}
 		
         row.find('td.details').append(App.Wireframe.Utils.renderPriority(task['priority'], true))
 		  .append(App.Wireframe.Utils.renderLabel(task['label']) + " ")
           .append('<a class="task_url quick_view_item" href="' + task['urls']['view'] + '">' + task['name'] + '</a>')
           .append('<br />' + App.lang('Assigned to') + ' ')
-          .append(asd)
-          .append('. ' + App.lang('Updated on') + ' ' + (task['updated_on']));
+          .append(assignee_line)
+          .append('. ' + App.lang('Updated on') + ' ' + App.Wireframe.Utils.ago(task['updated_on']));
 		/*
 		* Fine FRosso Hack
 		*/
