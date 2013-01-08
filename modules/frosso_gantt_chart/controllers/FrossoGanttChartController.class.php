@@ -95,9 +95,15 @@ class FrossoGanttChartController extends ProjectController{
 				if($res['is_completed']){
 					$res['percent_completion'] = 100;
 				}else{
-					$res['percent_completion'] = 1; //TODO: cambiare
+					list($total_subtasks, $open_subtasks) = ProjectProgress::getObjectProgress($task);
+					$completed_subtasks = $total_subtasks - $open_subtasks;
+					if($open_subtasks) {
+						$res['percent_completion'] = ceil((( ($completed_subtasks ) / $total_subtasks) * 100));
+					} else {
+						$res['percent_completion'] = 0;
+					}
 				}
-				
+				echo $res['percent_completion'].' ';
 				$tasks[] = $res;
 				
 				if(($res['milestone_id'] == 0) &&($first_task_time->getTimestamp() > $start_on->getTimestamp())){
