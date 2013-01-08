@@ -159,19 +159,18 @@
 		/*
 		* Inizio FRosso Hack
 		*/
-		var assignee_line;
-		if(task['assignee_id'] != null && task['assignee_id'] != 'null'){
-			assignee_line = App.Wireframe.Utils.userLink(task['assignee_id']);
-		}else{
-			assignee_line = App.lang('not assigned');
-		}
-		
         row.find('td.details').append(App.Wireframe.Utils.renderPriority(task['priority'], true))
 		  .append(App.Wireframe.Utils.renderLabel(task['label']) + " ")
-          .append('<a class="task_url quick_view_item" href="' + task['urls']['view'] + '">' + task['name'] + '</a>')
-          .append('<br />' + App.lang('Assigned to') + ' ')
-          .append(assignee_line)
-          .append('. ' + App.lang('Updated on') + ' ' + App.Wireframe.Utils.ago(task['updated_on']));
+          .append('<a class="task_url quick_view_item" href="' + task['urls']['view'] + '">' + task['name'] + '</a>');
+
+        if(task['assignee_id'] != null && task['assignee_id'] != 'null'){
+        	row.find('td.details').append('<br />' + App.lang('Assigned to') + ' ')
+        		.append(App.Wireframe.Utils.userLink(task['assignee_id']))
+        } else {
+        	row.find('td.details').append('<br />' + App.lang('Not assigned'))
+        }
+        
+        row.find('td.details').append('. ' + App.lang('Updated on') + ' ' + App.Wireframe.Utils.ago(task['updated_on']));
 		/*
 		* Fine FRosso Hack
 		*/

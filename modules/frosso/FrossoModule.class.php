@@ -11,7 +11,7 @@ class FrossoModule extends AngieModule{
 	/*
 	 * Versione
 	 */
-	protected $version = '0.5';
+	protected $version = '0.6';
 	
 	/**
 	 * Name of the project object class (or classes) that this module uses
