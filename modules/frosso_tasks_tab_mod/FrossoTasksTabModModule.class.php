@@ -10,7 +10,7 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	 *
 	 * @var string
 	 */
-	protected $active_module = FROSSO_TTMOD_MODULE;
+	protected $active_module = 'frosso_tasks_tab_mod';
 	
 	/*
 	 * Nome del modulo, dev'essere uguale al nome della cartella

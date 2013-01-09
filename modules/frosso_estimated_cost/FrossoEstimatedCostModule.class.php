@@ -6,7 +6,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 	 *
 	 * @var string
 	 */
-	protected $active_module = FROSSO_EC_MODULE;
+	protected $active_module = 'frosso_estimated_cost';
 	
 	/*
 	 * Nome del modulo, dev'essere uguale al nome della cartella

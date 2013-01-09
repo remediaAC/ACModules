@@ -10,7 +10,7 @@ class FrossoProjectTabModule extends ActiveCollabProjectSectionModule{
 	 *
 	 * @var string
 	 */
-	protected $active_module = FROSSO_PT_MODULE;
+	protected $active_module = 'frosso_project_tab';
 	
 	/*
 	 * Nome del modulo, dev'essere uguale al nome della cartella
