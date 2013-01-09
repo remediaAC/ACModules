@@ -14,7 +14,7 @@
  */
 function frosso_estimated_cost_handle_on_object_inspector(IInspectorImplementation &$inspector, IInspector &$object, IUser &$user, $interface) {
 	if ($object instanceof Milestone) {
-		if(($object->assignees()->isResponsible($user))||$object->getProject()->isLeader($user)){
+		if(($object->assignees()->isResponsible($user))||$object->getProject()->canEdit($user)){
 			$inspector->addProperty('percent_complete', lang('Percent complete'), new MilestonePercentCompleteInspectorProperty(new RemediaMilestone($object->getId())));
 			if (AngieApplication::isModuleLoaded('tracking')) {
 				$inspector->addProperty('milestone_estimate', lang('Estimation'), new MilestoneEstimateInspectorProperty(new RemediaMilestone($object->getId())));

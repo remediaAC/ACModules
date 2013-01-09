@@ -16,7 +16,7 @@ class FrossoController extends MilestoneTasksController{
 	 * construct Controller
 	 */
 	function __construct($parent, $context = null) {
-		parent::__construct($parent, $controller);
+		parent::__construct($parent, $context);
 	}
 	
 	/**

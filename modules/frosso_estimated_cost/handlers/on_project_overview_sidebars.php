@@ -15,7 +15,7 @@
    * @param User $user
    */
   function frosso_estimated_cost_handle_on_project_overview_sidebars(&$sidebars, Project &$project, User &$user) {
-    if($user->canUseReports() || $project->isLeader($user)){
+    if(($user->canUseReports() || $project->isLeader($user)) && $project->canEdit($user)){
 	    $arguments = array(
         	'conditions' => array(
         			'project_id = ? AND type = ? AND state >= ? AND visibility >= ? AND completed_on IS NULL', 
