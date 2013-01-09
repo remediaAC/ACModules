@@ -286,18 +286,6 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
 
     'grouping' : grouping,
     'filtering' : []
-//    ,
-//    'ordering_by' :[{
-//      'label' : 'default (frosso)',
-//      'property' : '',
-//      'icon' : App.Wireframe.Utils.imageUrl('priority-widget/priority-high.png', 'complete')
-//    }, {
-//      'label' : 'Id (frosso)',
-//      'property' : 'id',
-//      'icon' : App.Wireframe.Utils.imageUrl('priority-widget/priority-highest.png', 'complete'),
-//      'breadcrumbs' : App.lang('Ids'),
-//      'default' : true
-//    }]
   };
 
   if (!{$in_archive|json nofilter}) {
