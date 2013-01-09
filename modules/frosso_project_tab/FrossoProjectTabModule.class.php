@@ -34,7 +34,7 @@ class FrossoProjectTabModule extends ActiveCollabProjectSectionModule{
 	}
 	
 	public function getDescription(){
-		return lang("Modulo creato per aggiungere una tab customizzata con l'ordinamento dei task asperti");
+		return lang("Modulo creato per aggiungere una tab customizzata con l'ordinamento dei task aperti");
 	}
 	
 	function defineRoutes(){
