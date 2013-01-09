@@ -4,14 +4,6 @@ AngieApplication::useController('tasks_plus', TASKS_PLUS_MODULE);
 
 class FrossoTasksTabModController extends TasksPlusController {
 	
-	static $priorities_map = array(
-			PRIORITY_HIGHEST	=> 'highest',
-			PRIORITY_HIGH		=> 'high',
-			PRIORITY_NORMAL		=> 'normal',
-			PRIORITY_LOW		=> 'low',
-			PRIORITY_LOWEST		=> 'lowest'
-	);
-	
 	/**
 	 * Construct controller
 	 *
@@ -32,19 +24,6 @@ class FrossoTasksTabModController extends TasksPlusController {
 	 */
 	function __before(){
 		parent::__before();
-	
-		if(!Tasks::canAccess($this->logged_user, $this->active_project)) {
-			$this->response->forbidden();
-		} // if
-	
-		// load project tabs
-		//$project_tabs = $this->active_project->getTabs($this->logged_user, AngieApplication::INTERFACE_DEFAULT);
-	
-	
-		$this->wireframe->tabs->setCurrentTab('tasks');
-	
-		$this->wireframe->breadcrumbs->add('frosso_tasks_tab_route', lang('TasksMod'), Router::assemble('frosso_tasks_tab_route', array('project_slug' => $this->active_project->getSlug())));
-	
 	}
 	
 	function index() {
