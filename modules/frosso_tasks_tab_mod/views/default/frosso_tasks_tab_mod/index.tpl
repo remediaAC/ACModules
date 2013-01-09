@@ -22,4 +22,9 @@
   </div>
 </div>
 
-{include file=get_view_path('_initialize_objects_list', 'frosso_tasks_tab_mod', $smarty.const.FROSSO_TTMOD_MODULE)}
+
+{if AngieApplication::isModuleLoaded('tasks_plus')}
+{include file=get_view_path('_initialize_objects_list_tp_en', 'frosso_tasks_tab_mod', $smarty.const.FROSSO_TTMOD_MODULE)}
+{else}
+{include file=get_view_path('_initialize_objects_list_tp_dis', 'frosso_tasks_tab_mod', $smarty.const.FROSSO_TTMOD_MODULE)}
+{/if}

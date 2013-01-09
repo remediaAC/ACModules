@@ -1,41 +1,7 @@
 <?php
 
-AngieApplication::useController('tasks_plus', TASKS_PLUS_MODULE);
-
-class FrossoTasksTabModController extends TasksPlusController {
-	
-	/**
-	 * Construct controller
-	 *
-	 * @param Request $parent
-	 * @param mixed $context
-	 */
-	function __construct($parent, $context = null) {
-		parent::__construct($parent, $context);
-	}
-	
-	/**
-	 * Prepare controller
-	 */
-	function __before(){
-		parent::__before();
-	}
-	
-	function index() {
-		parent::index();
-		
-		$this->response->assign(array(
-				'tasks' => FrossoModel::findForObjectsList($this->active_project, $this->logged_user)
-		));
-	}
-	
-	function view() {
-		parent::view();
-		//TODO: cambiare il template
-	}
-	
-	function edit() {
-		parent::edit();
-	}
-	
+if(AngieApplication::isModuleLoaded('tasks_plus')) {
+	require_once dirname(__FILE__) . '/TasksPlusEnabledController.class.php';
+} else {
+	require_once dirname(__FILE__) . '/TasksPlusDisabledController.class.php';
 }

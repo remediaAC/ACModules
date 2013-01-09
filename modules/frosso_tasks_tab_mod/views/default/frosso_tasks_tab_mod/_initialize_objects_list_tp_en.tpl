@@ -190,7 +190,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       /* INIZIO FRosso Hack */
       // task name
       row += ' ' + App.Wireframe.Utils.renderPriorityIndicator(item['priority']);
-      row += '<span class="real_task_name">' + item['name'].clean() +'';
+      row += '<span class="real_task_name">' + item['name'].clean();
       
       // aggiungo il responsabile
       if(item['assignee_id']!=null && item['assignee_id']!=undefined && item['assignee_id']!=0){
