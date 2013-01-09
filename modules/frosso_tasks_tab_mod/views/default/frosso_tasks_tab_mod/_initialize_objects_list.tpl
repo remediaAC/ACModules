@@ -24,7 +24,9 @@ $('#tasks').each(function() {
   var milestones_map = {$milestones|map nofilter};
   var labels_map = {$labels|map nofilter};
   var users_map = {$users|map nofilter};
+  /* INIZIO FRosso Hack */
   var users_array = {$users|json nofilter};
+  /* FINE FRosso Hack */
   var priority_map = {$priority|map nofilter};
   var kanban_url = {$kanban_url|json nofilter};
   var reorder_url = '{assemble route=project_tasks_reorder project_slug=$active_project->getSlug()}';
@@ -191,8 +193,9 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       row += '<span class="real_task_name">' + item['name'].clean() +'';
       
       // aggiungo il responsabile
-      if(item['assignee_id']!=0)
+      if(item['assignee_id']!=null && item['assignee_id']!=undefined && item['assignee_id']!=0){
     	  row += '&nbsp;<strong>' + filtraNome(users_array[item['assignee_id']]) + '</strong>';
+      }
       row += App.Wireframe.Utils.renderVisibilityIndicator(item['visibility'])  + ' ' + '</span></span></td><td class="task_options">';
       
       var color_class = 'mono';
