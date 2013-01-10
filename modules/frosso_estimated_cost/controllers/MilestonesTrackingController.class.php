@@ -224,7 +224,7 @@ class MilestonesTrackingController extends MilestonesController {
 							$this->flash->success('Milestone ":name" has been created', array('name' => $this->active_milestone->getName()));
 							$this->response->redirectToUrl($this->active_milestone->getViewUrl());
 						} else {
-							$this->response->respondWithData(new Milestone($this->active_milestone->getId()), array(
+							$this->response->respondWithData($this->active_milestone, array(
 									'as' => 'milestone',
 									'detailed' => true,
 							));

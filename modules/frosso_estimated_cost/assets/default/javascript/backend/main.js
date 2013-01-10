@@ -58,7 +58,6 @@ jQuery.fn.objectEstimateIcon = function (s) {
 App.Inspector.Properties.MilestoneCustomComplete = function (object, client_interface, route) {
 	var complete_wrapper = $(this);
 	complete_wrapper.html("");
-	console.log(object);
 	var img = App.Wireframe.Utils.imageUrl('icons/12x12/edit.png', 'environment');
 	var link = $("<a href='"+route+"' class='set_milestone_percent_completion'><img src='"+img+"' /></a>");
 	var value = $("<span id='percent_value_milestone_"+object.id+"'>"+object.custom_fields.custom_field_1.value+"%</span>");
