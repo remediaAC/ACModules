@@ -72,6 +72,7 @@ class FrossoModel {
 							'visibility'        => $task['visibility'],
 							'created_on'		=> $task['created_on'] ? $task['created_on'] : $task['updated_on'],
 							'updated_on'		=> $task['updated_on'],
+							'has_attachments'	=> $taskObj->attachments()->has() ? true : false,
 													// Se non c'è il cognome, tengo il nome per esteso. Altrimenti abbrevio il nome al primo carattere.
 							'assignee_name'		=> ($task['last_name'] ? substr($task['first_name'], 0, 1) . "." : $task['first_name'] ) . ($task['last_name'] ? " " . $task['last_name'] :""),
 							'due_on'			=> $task['due_on'] ? $task['due_on'] : lang('No due date set'),

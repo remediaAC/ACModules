@@ -28,3 +28,8 @@ span.label_background {
 	width: 12px !important;
 	height: 12px !important;
 }
+
+img.has_attachments {
+	width: 12px;
+	height: 12px;
+}

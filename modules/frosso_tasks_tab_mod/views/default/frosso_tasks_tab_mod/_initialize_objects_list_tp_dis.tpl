@@ -151,6 +151,7 @@ $('#tasks').each(function() {
       row += App.Wireframe.Utils.renderLabelTag(item.label);
 
       /* INIZIO FRosso Hack */
+      row += App.Wireframe.Utils.renderAttachmentsIndicator(item['has_attachments']) + ' ';
       // task name
       row += '<span class="real_task_name">' + item['name'].clean();
       
@@ -274,14 +275,14 @@ $('#tasks').each(function() {
 
     /* INIZIO FRosso Hack */
     init_options.filtering.push({
-        'label' : 'Current label (frosso)',
+        'label' : App.lang('Current label'),
         'property' : 'label_id',
         'values' : [{
-        	'label' : 'Nessun filtro label',
+        	'label' : App.lang('Nessun filtro label'),
         	'value' : '',
         	'icon' : App.Wireframe.Utils.imageUrl('status-icons/tag.png', 'frosso_tasks_tab_mod'),
         	'default' : true,
-        	'breadcrumbs' : 'Nessun filtro label'    
+        	'breadcrumbs' : App.lang('Nessun filtro label')
           }, {
         	'label' : 'NEW',
         	'value' : '16',
@@ -322,6 +323,27 @@ $('#tasks').each(function() {
         	'value' : '23',
         	'icon' : App.Wireframe.Utils.imageUrl('status-icons/closed.png', 'frosso_tasks_tab_mod'),
         	'breadcrumbs' : 'Label: CLOSED'
+    	  }] 
+        });
+    init_options.filtering.push({
+        'label' : App.lang('With attachments'),
+        'property' : 'has_attachments',
+        'values' : [{
+        	'label' : App.lang('Nessun filtro allegati'),
+        	'value' : '',
+        	'icon' : App.Wireframe.Utils.imageUrl('16x16/icon-attachments.png', 'frosso_tasks_tab_mod'),
+        	'default' : true,
+        	'breadcrumbs' : App.lang('Nessun filtro allegati')    
+          }, {
+        	'label' : App.lang('Solo tasks con allegati'),
+        	'value' : true,
+        	'icon' : App.Wireframe.Utils.imageUrl('16x16/icon-with_attachments.png', 'frosso_tasks_tab_mod'),
+        	'breadcrumbs' : App.lang('Con allegati')
+    	  }, {
+    	  	'label' : App.lang('Solo tasks senza allegati'),
+        	'value' : false,
+        	'icon' : App.Wireframe.Utils.imageUrl('16x16/icon-no_attachments.png', 'frosso_tasks_tab_mod'),
+        	'breadcrumbs' : App.lang('Senza allegati')
     	  }] 
         });
     /* FINE FRosso Hack */
