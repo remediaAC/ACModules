@@ -51,7 +51,15 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		return $this->tracking;
 	} // tracking
 
-
+	/**
+	 * Return number of percents this object is done
+	 * 
+	 * If $based_on_tasks == true calculate the percent_done based on task completion
+	 * Else it will return the custom field value setted by the user
+	 * 
+	 * @param $based_on_tasks bool
+	 * @return integer
+	 */
 	function getPercentsDone($based_on_tasks = true) {
 		return $based_on_tasks ? parent::getPercentsDone() : $this->getCustomField1();
 	}
@@ -60,7 +68,7 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 
 		$tempo_stimato 		= $this->tracking()->getEstimate()->getValue();
 		$tempo_impiegato 	= $this->tracking()->sumTime($user);
-		$completamento		= $this->getCustomField1();
+		$completamento		= $this->getPercentsDone(false);
 
 		if(!$completamento) return 0;
 
@@ -112,21 +120,31 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	 * @return array
 	 */
 	function describe(IUser $user, $detailed = false, $for_interface = false) {
-		$result = parent::describe($user, $detailed, $for_interface);
+		$mil_t = new Milestone($this->getId());
+		$result = $mil_t->describe($user, $detailed, $for_interface);
+// 		$result = parent::describe($user, $detailed, $for_interface);
 
 		$result['id'] = $this->getId();
-
+		
 		if($detailed){
 			$result['custom_percent_complete'] = $this->getPercentsDone(false);
 			$result['remaining_time'] = $this->getRemainingTime();
-			$result['summed_time'] = $this->tracking()->sumTime(Authentication::getLoggedUser());
+			$result['summed_time'] = $this->tracking()->sumTime($user);
 		}
 
 		return $result;
 	}
 
+	/**
+	 * Return array or property => value pairs that describes this object
+	 *
+	 * @param IUser $user
+	 * @param boolean $detailed
+	 * @return array
+	 */
 	function describeForApi(IUser $user, $detailed = false) {
-		$result = parent::describeForApi($user, $detailed);
+		$mil_t = new Milestone($this->getId());
+		$result = $mil_t->describeForApi($user, $detailed, $for_interface);
 
 		$result['id'] = $this->getId();
 
@@ -149,7 +167,12 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		return $this->setCustomField1($value);
 	}
 
-	function validate($errors){
+	/**
+	 * Validate before save
+	 *
+	 * @param ValidationErrors $errors
+	 */
+	function validate(ValidationErrors &$errors) {
 		parent::validate($errors);
 		if($this->validatePresenceOf('custom_field_1')){
 			if($this->getCustomField1() < 0 || $this->getCustomField1() > 100){
@@ -157,7 +180,26 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 			}
 		}
 	}
+	
+	/**
+	 * Return base type name
+	 *
+	 * @param boolean $singular
+	 * @return string
+	 */
+	function getBaseTypeName($singular = true) {
+		if($singular) {
+			return 'milestone';
+		} else {
+			return 'milestones';
+		} // if
+	}
 
+	/**
+	 * Save milestone record to the database
+	 *
+	 * @return boolean
+	 */
 	function save() {
 		// hack
 		DB::beginWork('Saving Milestone @ ' . __CLASS__);

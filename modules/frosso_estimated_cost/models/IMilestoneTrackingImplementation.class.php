@@ -23,6 +23,7 @@ class IMilestoneTrackingImplementation extends ITrackingImplementation {
 	}
 
 	function describeForApi(IUser $user, $detailed, &$result) {
+		return parent::describeForApi($user, $detailed, $result);
 	}
 	
 	function canAdd($user) {
