@@ -250,5 +250,13 @@ class MilestonesTrackingController extends MilestonesController {
 	function update_milestone() {
 		parent::update_milestone();
 	}
+	
+	function view() {
+		parent::view();
+	}
+	
+	function index() {
+		parent::index();
+	}
 
 }

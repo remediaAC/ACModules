@@ -60,7 +60,7 @@ App.Inspector.Properties.MilestoneCustomComplete = function (object, client_inte
 	complete_wrapper.html("");
 	var img = App.Wireframe.Utils.imageUrl('icons/12x12/edit.png', 'environment');
 	var link = $("<a href='"+route+"' class='set_milestone_percent_completion'><img src='"+img+"' /></a>");
-	var value = $("<span id='percent_value_milestone_"+object.id+"'>"+object.custom_fields.custom_field_1.value+"%</span>");
+	var value = $("<span id='percent_value_milestone_"+object.id+"'>"+object.custom_percent_complete+"%</span>");
 	complete_wrapper.append(value);
 	complete_wrapper.append(" ");
 	complete_wrapper.append(link);
@@ -76,10 +76,12 @@ App.Inspector.Properties.MilestoneCustomComplete = function (object, client_inte
 	})
 };
 
-App.Inspector.Properties.MilestoneEstimation = function (settings) {
+App.Inspector.Properties.MilestoneEstimation = function (object, settings) {
 	var est_wrapper = $(this);
 	est_wrapper.html("");
 	est_wrapper.append("<span id='milestone_estimated_container_id_"+settings['object_id']+"' sum_time='"+settings['summed_time']+"'>"+settings['summed_time']+"h di <span id='milestone_estimate_"+settings['object_id']+"'></span></span>");
+	// overwrite for update
+	settings['value'] = object.estimate.value;
 	$("#milestone_estimate_"+settings['object_id']).objectEstimateIcon(settings);
 	if(settings['summed_time'] > settings['value']) {
 		est_wrapper.css('color', 'red');

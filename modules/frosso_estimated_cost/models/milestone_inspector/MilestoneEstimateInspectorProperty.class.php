@@ -46,7 +46,7 @@ class MilestoneEstimateInspectorProperty extends InspectorProperty {
 		);
 
 		return '(function (field, object, client_interface) {
-					App.Inspector.Properties.MilestoneEstimation.apply(field, ['.JSON::encode($settings).']);
+					App.Inspector.Properties.MilestoneEstimation.apply(field, [object, '.JSON::encode($settings).']);
 				})';
 	}
 
