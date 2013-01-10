@@ -122,7 +122,8 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function describe(IUser $user, $detailed = false, $for_interface = false) {
 		$mil_t = new Milestone($this->getId());
 		$result = $mil_t->describe($user, $detailed, $for_interface);
-// 		$result = parent::describe($user, $detailed, $for_interface);
+		// In this exact order, it's important!
+		$result = array_merge(parent::describe($user, $detailed, $for_interface), $result);
 
 		$result['id'] = $this->getId();
 		
@@ -145,6 +146,8 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 	function describeForApi(IUser $user, $detailed = false) {
 		$mil_t = new Milestone($this->getId());
 		$result = $mil_t->describeForApi($user, $detailed, $for_interface);
+		// In this exact order, it's important!
+		$result = array_merge(parent::describeForApi($user, $detailed, $for_interface), $result);
 
 		$result['id'] = $this->getId();
 
