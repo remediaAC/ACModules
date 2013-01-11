@@ -73,10 +73,7 @@ class FrossoModel {
 							'created_on'		=> $task['created_on'] ? $task['created_on'] : $task['updated_on'],
 							'updated_on'		=> $task['updated_on'],
 							'has_attachments'	=> $taskObj->attachments()->has() ? true : false,
-													// Se non c'è il cognome, tengo il nome per esteso. Altrimenti abbrevio il nome al primo carattere.
-							'assignee_name'		=> ($task['last_name'] ? substr($task['first_name'], 0, 1) . "." : $task['first_name'] ) . ($task['last_name'] ? " " . $task['last_name'] :""),
-							'due_on'			=> $task['due_on'] ? $task['due_on'] : lang('No due date set'),
-							'stato'				=> $task['due_on'] ? ($task['due_on'] >= $today ? 'orario' : 'ritardo') : 'not_set' //se c'è la data di scadenza, controllo che sia nel futuro, altrimenti il task è in ritardo
+							'due_on'			=> $task['due_on'] ? $task['due_on'] : lang('No due date set')
 					);
 			} // foreach
 		} // if
