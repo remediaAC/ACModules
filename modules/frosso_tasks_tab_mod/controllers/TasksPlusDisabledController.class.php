@@ -25,7 +25,7 @@ class FrossoTasksTabModController extends TasksController {
 		parent::index();
 
 		$this->response->assign(array(
-				'tasks' => FrossoModel::findForObjectsList($this->active_project, $this->logged_user)
+				'tasks' => FrossoTasksTabModModel::findForObjectsList($this->active_project, $this->logged_user)
 		));
 	}
 
