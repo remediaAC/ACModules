@@ -13,6 +13,10 @@
 		      {label for=my_pri_key}My Private Key{/label}
 		      {textarea_field name='my_pri_key' id=my_pri_key}{$my_pri_key nofilter}{/textarea_field}
 		    {/wrap}
+		    {wrap field=token}
+		      {label for=token}Shared Token{/label}
+			  {text_field name="token" value=$token}
+		    {/wrap}
 	    {/wrap_fields}
     </div>
     

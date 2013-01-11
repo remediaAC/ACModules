@@ -13,7 +13,7 @@ class FrossoTestingController extends ReportsController {
 		
 		$rsa->loadKey(ConfigOptions::getValue('frosso_auth_my_pub_key'));
 		
-		$text = 'frosso@remedia.it;remedia;'.time();
+		$text = 'frosso@remedia.it;'.ConfigOptions::getValue('frosso_auth_my_pri_token', false).';'.time();
 		$crypt =  $rsa->encrypt($text);
 		
 		echo '<textarea cols="200">'.($crypt)."</textarea>";

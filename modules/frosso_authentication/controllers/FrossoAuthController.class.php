@@ -32,7 +32,7 @@ class FrossoAuthController extends FwAuthenticationController {
 			if ($decrypted_params) {
 				list($email, $token, $timestamp) = explode(';', $decrypted_params);
 				if ($email && $token && $timestamp) {
-					if ($token == 'remedia' && (time() - 60*10 ) < $timestamp && $timestamp < (time() + 60*10)) {
+					if ($token == ConfigOptions::getValue('frosso_auth_my_pri_token') && (time() - 60*10 ) < $timestamp && $timestamp < (time() + 60*10)) {
 						Authentication::useProvider('FrossoProvider', false);
 						Authentication::getProvider()->initialize(array(
 						'sid_prefix' => AngieApplication::getName(),
