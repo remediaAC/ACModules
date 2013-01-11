@@ -9,7 +9,7 @@ class FrossoAuthenticationModule extends AngieModule {
 	/*
 	 * Versione
 	*/
-	protected $version = '0.4';
+	protected $version = '0.5';
 	
 	public function getDisplayName(){
 		return lang('SSO - FRosso per reMedia');
@@ -20,7 +20,24 @@ class FrossoAuthenticationModule extends AngieModule {
 	}
 	
 	function defineRoutes(){
+		// Login route
 		Router::map('auth_login_frosso', 'login-frosso', array('controller' => 'frosso_auth', 'action' => 'login'));
+		
+		// Admin Route
+		Router::map('auth_login_frosso_admin', 'admin/login-frosso-config', array('controller' => 'frosso_auth_admin'));
+	}
+	
+	/**
+	 * Define event handlers
+	 */
+	function defineHandlers() {
+		EventsManager::listen('on_admin_panel', 'on_admin_panel');
+	} // defineHandlers
+	
+	function install() {
+		ConfigOptions::addOption('frosso_auth_my_pub_key', FROSSO_AUTH_MODULE, '');
+		ConfigOptions::addOption('frosso_auth_my_pri_key', FROSSO_AUTH_MODULE, '');
+		parent::install();
 	}
 	
 }
