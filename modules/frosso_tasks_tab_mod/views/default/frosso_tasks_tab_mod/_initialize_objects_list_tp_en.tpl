@@ -186,7 +186,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
 
       /* INIZIO FRosso Hack */
       row += ' ' + App.Wireframe.Utils.renderPriorityIndicator(item['priority']);
-      row += App.Wireframe.Utils.renderAttachmentsIndicator(item['has_attachments']) + ' ';
+      row += ' ' + App.Wireframe.Utils.renderAttachmentsIndicator(item['has_attachments']) + ' ';
       // task name
       row += '<span class="real_task_name">' + item['name'].clean();
       
@@ -194,7 +194,7 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       if(item['assignee_id']!=null && item['assignee_id']!=undefined && item['assignee_id']!=0){
     	  var assignee_name = users_map.get(item['assignee_id']);
     	  if(assignee_name){
-    		  row += '&nbsp;<strong>' + filtraNome(assignee_name) + '</strong>';
+    		  row += '&nbsp;<span class="ticket_assignee_name">' + filtraNome(assignee_name) + '</span>';
     	  }
       }
       row += App.Wireframe.Utils.renderVisibilityIndicator(item['visibility'])  + ' ' + '</span></span></td><td class="task_options">';

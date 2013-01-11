@@ -33,3 +33,8 @@ img.has_attachments {
 	width: 12px;
 	height: 12px;
 }
+
+span.ticket_assignee_name {
+	font-weight: bold;
+	color: #2F3030;
+}
