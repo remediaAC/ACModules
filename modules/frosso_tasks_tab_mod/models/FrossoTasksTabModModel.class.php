@@ -1,6 +1,6 @@
 <?php
 
-class FrossoModel {
+class FrossoTasksTabModModel {
 	/**
 	 * Find all tasks in project, and prepare them for objects list
 	 *
