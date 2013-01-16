@@ -8,8 +8,8 @@ These modules are compatible with ActiveCollab > 3.2.0.
 
 Copy them in the /custom folder of your AC3 installation.
 
-# Frosso
-**location:** modules/frosso
+# Milestone Task Assignee
+**location:** modules/frosso_milestone_task_assignee
 
 ## About this module
 This is the first custom module I wrote, it overwrites the "Tasks" tab in the Milestone view, adding:
@@ -18,7 +18,7 @@ This is the first custom module I wrote, it overwrites the "Tasks" tab in the Mi
 * when the task has been updated
 
 ## Screenshot
-![alt text](http://i.imgur.com/Inp4c.png "FRosso module screenshot")
+![alt text](http://i.imgur.com/Inp4c.png "Milestone Task Assignee module screenshot")
 
 # Frosso Authentication
 **location:** 
