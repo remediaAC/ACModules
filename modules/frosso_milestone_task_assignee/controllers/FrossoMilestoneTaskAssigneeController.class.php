@@ -43,11 +43,11 @@ class FrossoMilestoneTaskAssigneeController extends MilestoneTasksController{
 				$exclude = $this->request->get('paged_list_exclude') ? explode(',', $this->request->get('paged_list_exclude')) : null;
 				$timestamp = $this->request->get('paged_list_timestamp') ? (integer) $this->request->get('paged_list_timestamp') : null;
 				$result = DB::execute("SELECT * FROM " . TABLE_PREFIX . "project_objects WHERE milestone_id = ? AND type = 'Task' AND state >= ? AND visibility >= ? AND id NOT IN (?) AND created_on < ? ORDER BY " . Tasks::ORDER_ANY . " LIMIT $milestone_tasks_per_page", $this->active_milestone->getId(), STATE_VISIBLE, $this->logged_user->getMinVisibility(), $exclude, date(DATETIME_MYSQL, $timestamp));
-				$this->response->respondWithData(FrossoController::getDescribedTaskArray($result, $this->active_project, $this->logged_user, $milestone_tasks_per_page));
+				$this->response->respondWithData(self::getDescribedTaskArray($result, $this->active_project, $this->logged_user, $milestone_tasks_per_page));
 			} else {
 				
 				$result = DB::execute("SELECT * FROM " . TABLE_PREFIX . "project_objects WHERE milestone_id = ? AND type = 'Task' AND state >= ? AND visibility >= ? ORDER BY " . Tasks::ORDER_ANY, $this->active_milestone->getId(), STATE_VISIBLE, $this->logged_user->getMinVisibility());
-				$tasks = FrossoController::getDescribedTaskArray($result, $this->active_project, $this->logged_user, $milestone_tasks_per_page);
+				$tasks = self::getDescribedTaskArray($result, $this->active_project, $this->logged_user, $milestone_tasks_per_page);
 				
 				$this->response->assign(array(
 						'tasks' => $tasks,
