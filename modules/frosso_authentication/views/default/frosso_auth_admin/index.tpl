@@ -19,7 +19,7 @@
 		    {/wrap}
 		    	{wrap field=login_url}
 			    {label for=login_url}Login url{/label}
-				  {text_field name="login_url" value=Router::assemble('auth_login_frosso')}
+				  {text_field name="login_url" value=Router::assemble('auth_login_frosso') disabled=true}
 				{/wrap}
 		{/wrap_fields}
     </div>
