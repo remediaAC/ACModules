@@ -142,3 +142,9 @@ This module is also compatible with TasksPlus!
 
 ## About this module
 Nothing to see here, move on!
+
+# License
+
+These modules are provided without warranty.
+
+Feel free to install these modules and fork this repository/make changes as long as you tell me what you modified. Thank you!
