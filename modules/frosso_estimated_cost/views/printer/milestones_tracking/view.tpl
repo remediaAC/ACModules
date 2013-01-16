@@ -1,0 +1,1 @@
+{include file=get_view_path('view', 'milestones', $smarty.const.SYSTEM_MODULE)}
