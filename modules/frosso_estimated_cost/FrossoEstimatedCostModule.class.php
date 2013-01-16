@@ -27,7 +27,10 @@ class FrossoEstimatedCostModule extends AngieModule {
 	}
 	
 	function defineRoutes(){
-		Router::map('frosso_estimated_cost_reports', 'reports/frosso-ecr', array('controller' => 'frosso_estimated_cost_reports', 'action' => 'index'));
+		// Reports
+		Router::map('frosso_estimated_cost_report', 'reports/frosso-ecr', array('controller' => 'frosso_estimated_cost_reports', 'action' => 'index'));
+		Router::map('frosso_estimated_cost_report_run', 'reports/frosso-ecr-run', array('controller' => 'frosso_estimated_cost_reports', 'action' => 'form_run'));
+		
 		Router::map('frosso_testing_route', 'reports/frosso-test', array('controller' => 'frosso_testing', 'action' => 'index'));
 		
 		Router::map('frosso_ec_set_milestone_percent', 'projects/:project_slug/milestones/:milestone_id/percent/set', array('controller' => 'milestones_tracking', 'action' => 'set_percent'));

@@ -8,5 +8,6 @@ AngieApplication::setForAutoload(array(
 	'IMilestoneCustomFieldsImplementation'		=> FROSSO_EC_MODULE_PATH . '/models/IMilestoneCustomFieldsImplementation.class.php',
 	'RemediaMilestone'							=> FROSSO_EC_MODULE_PATH . '/models/RemediaMilestone.class.php',
 	'MilestonePercentCompleteInspectorProperty'	=> FROSSO_EC_MODULE_PATH . '/models/milestone_inspector/MilestonePercentCompleteInspectorProperty.class.php',
-	'MilestoneEstimateInspectorProperty'		=> FROSSO_EC_MODULE_PATH . '/models/milestone_inspector/MilestoneEstimateInspectorProperty.class.php'
+	'MilestoneEstimateInspectorProperty'		=> FROSSO_EC_MODULE_PATH . '/models/milestone_inspector/MilestoneEstimateInspectorProperty.class.php',
+	'MilestoneETAReport'						=> FROSSO_EC_MODULE_PATH . '/models/reports/MilestoneETAReport.class.php',
 ));

@@ -9,6 +9,9 @@
 <th>Tempo impiegato su tempo stimato</th>
 <th>Tempo rimanente</th>
 <th>Percentuale completamento</th>
+{if $detailed_report}
+<th>Task completati / Task totali</th>
+{/if}
 <th>Previsione globale</th>
 </tr>
 </thead>
@@ -49,6 +52,9 @@ color: green;
 <img src="{image_url name="icons/12x12/edit.png" module=$smarty.const.ENVIRONMENT_FRAMEWORK}" id="edit_percent_icon_{$object->getId()}" class="icon_list_icon" alt="Edit value"  />
 </a>
 </td>
+{if $detailed_report}
+<td>{$object->getCompletedTaskCount()} of {$object->getTotalTasksCount()} tasks done ({$object->getPercentsDone()} % done)</td>
+{/if}
 <td>
 {if $object->getPercentsDone(false)}
 <span id="sum_e_rem_{$object->getId()}" title="">{$object->getRemainingTime()+$summed_time_value}h</span>
