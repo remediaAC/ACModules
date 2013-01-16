@@ -151,7 +151,8 @@ $('#tasks').each(function() {
       row += App.Wireframe.Utils.renderLabelTag(item.label);
 
       /* INIZIO FRosso Hack */
-      row += App.Wireframe.Utils.renderAttachmentsIndicator(item['has_attachments']) + ' ';
+      row += ' ' + App.Wireframe.Utils.renderPriority(item['priority'], true);
+      row += ' ' + App.Wireframe.Utils.renderAttachmentsIndicator(item['has_attachments']) + ' ';
       // task name
       row += '<span class="real_task_name">' + item['name'].clean();
       
