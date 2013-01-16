@@ -14,7 +14,7 @@
   function frosso_handle_on_milestone_sections(&$project, &$milestone, &$user, &$sections, $interface) {
   	//uncomment these lines to add a new tab, instead
    	if(Tasks::canAccess($user, $project)) {
-   		Router::assemble('tasks_frosso', array('project_slug' => $project->getSlug(), 'milestone_id' => $milestone->getId()));
+   		Router::assemble('milestone_tasks', array('project_slug' => $project->getSlug(), 'milestone_id' => $milestone->getId()));
 //   		$section = array(
 //         'text' => lang('FRed'),
 //         'url' => Router::assemble('tasks_frosso', array('project_slug' => $project->getSlug(), 'milestone_id' => $milestone->getId())),

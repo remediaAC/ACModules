@@ -30,7 +30,7 @@ class FrossoModule extends AngieModule{
 	
 	function defineRoutes(){
 		//overwriten route activecollab/[versione]/modules/tasks/TasksModule.class.php
- 		Router::map('tasks_frosso', 'projects/:project_slug/milestones/:milestone_id/tasks', array('controller' => 'frosso', 'action' => 'index'), array('milestone_id' => Router::MATCH_ID));
+ 		Router::map('milestone_tasks', 'projects/:project_slug/milestones/:milestone_id/tasks', array('controller' => 'frosso', 'action' => 'index'), array('milestone_id' => Router::MATCH_ID));
 	}
 	
 	function defineHandlers(){

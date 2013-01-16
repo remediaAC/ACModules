@@ -30,12 +30,10 @@ class FrossoController extends MilestoneTasksController{
 		
 		parent::index();
 		
-		$this->smarty->assign('cambio', 'no');
-		
 		if($this->request->isWebBrowser()) {
 			$milestone_tasks_per_page = 30;
 		
-			$this->response->assign('more_results_url', Router::assemble('tasks_frosso', array(
+			$this->response->assign('more_results_url', Router::assemble('milestone_tasks', array(
 					'project_slug' => $this->active_project->getSlug(),
 					'milestone_id' =>$this->active_milestone->getId())
 			));
@@ -58,14 +56,7 @@ class FrossoController extends MilestoneTasksController{
 						'milestone_id' => $this->active_milestone->getId()
 				));
 			} //if
-		
-			// Server request made with mobile device
-		} elseif($this->request->isMobileDevice()) {
-			$this->response->assign(array(
-					'tasks' => DB::execute("SELECT id, name, category_id, milestone_id, integer_field_1 as task_id, assignee_id, updated_on, created_on FROM " . TABLE_PREFIX . "project_objects WHERE type = 'Task' AND milestone_id = ? AND state >= ? AND visibility >= ? AND completed_on IS NULL ORDER BY " . Tasks::ORDER_OPEN, $this->active_milestone->getId(), STATE_VISIBLE, $this->logged_user->getMinVisibility()),
-					'task_url' => Router::assemble('tasks_frosso', array('project_slug' => $this->active_project->getSlug(), 'task_id' => '--TASKID--')),
-			));
-		} // if
+		}
 				
 	}
 	
