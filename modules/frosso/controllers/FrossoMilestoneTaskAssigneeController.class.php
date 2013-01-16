@@ -3,14 +3,14 @@
 // We need projects controller
 AngieApplication::useController('milestone_tasks', TASKS_MODULE);
 
-class FrossoController extends MilestoneTasksController{
+class FrossoMilestoneTaskAssigneeController extends MilestoneTasksController{
 		
 	/**
 	 * Active module
 	 *
 	 * @var string
 	 */
-	protected $active_module = FROSSO_MODULE;
+	protected $active_module = FROSSO_MTA_MODULE;
 	
 	/**
 	 * construct Controller

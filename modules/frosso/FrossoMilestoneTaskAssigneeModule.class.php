@@ -2,11 +2,11 @@
 // Include applicaiton specific module base
 require_once APPLICATION_PATH . '/resources/ActiveCollabProjectSectionModule.class.php';
 
-class FrossoModule extends AngieModule{
+class FrossoMilestoneTaskAssigneeModule extends AngieModule{
 	/*
 	 * Nome del modulo, dev'essere uguale al nome della cartella
 	 */
-	protected $name = 'frosso';
+	protected $name = 'frosso_milestone_task_assignee';
 	
 	/*
 	 * Versione
@@ -21,7 +21,7 @@ class FrossoModule extends AngieModule{
 	protected $project_object_classes = 'Task';
 	
 	public function getDisplayName(){
-		return lang('Milestone Assignee - FRosso per reMedia');
+		return lang('Milestone Task Assignee - FRosso per reMedia');
 	}
 	
 	public function getDescription(){
@@ -30,7 +30,7 @@ class FrossoModule extends AngieModule{
 	
 	function defineRoutes(){
 		//overwriten route activecollab/[versione]/modules/tasks/TasksModule.class.php
- 		Router::map('milestone_tasks', 'projects/:project_slug/milestones/:milestone_id/tasks', array('controller' => 'frosso', 'action' => 'index'), array('milestone_id' => Router::MATCH_ID));
+ 		Router::map('milestone_tasks', 'projects/:project_slug/milestones/:milestone_id/tasks', array('controller' => 'frosso_milestone_task_assignee', 'action' => 'index'), array('milestone_id' => Router::MATCH_ID));
 	}
 	
 	function defineHandlers(){
