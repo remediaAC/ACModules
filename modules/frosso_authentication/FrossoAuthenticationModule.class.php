@@ -21,7 +21,7 @@ class FrossoAuthenticationModule extends AngieModule {
 
 	function defineRoutes(){
 		// Login route
-		Router::map('auth_login_frosso', 'login-frosso', array('controller' => 'frosso_auth', 'action' => 'login'));
+		Router::map('auth_login_frosso', 'sso-login', array('controller' => 'frosso_auth', 'action' => 'login'));
 
 		// Admin Route
 		Router::map('auth_login_frosso_admin', 'admin/login-frosso-config', array('controller' => 'frosso_auth_admin'));

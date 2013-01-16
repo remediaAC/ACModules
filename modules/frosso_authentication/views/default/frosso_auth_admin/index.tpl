@@ -17,11 +17,16 @@
 		      {label for=token}Shared Token{/label}
 			  {text_field name="token" value=$token}
 		    {/wrap}
-	    {/wrap_fields}
+		    	{wrap field=login_url}
+			    {label for=login_url}Login url{/label}
+				  {text_field name="login_url" value=Router::assemble('auth_login_frosso')}
+				{/wrap}
+		{/wrap_fields}
     </div>
-    
+
     {wrap_buttons}
   	  {submit}Save Changes{/submit}
     {/wrap_buttons}
   {/form}
 </div>
+
