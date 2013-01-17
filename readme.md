@@ -59,7 +59,7 @@ In your Administration page, you will find a new icon in the 'Others' section, c
 You will also find the url needed, the one you need to provide the `params` string throu GET method.
 
 # Milestone ETA
-**location:** * modules/frosso_estimated_cost
+**location:** modules/frosso_estimated_cost
 
 ## About this module
 This module adds the following features to the Milestone class:
@@ -136,8 +136,11 @@ This module is also compatible with TasksPlus!
 ## Screenshots
 ![alt text](http://i.imgur.com/ByPw6.png "Tasks Tab Mod screenshot")
 
+## Known Issues
 
-# Tasks Tab Mod
+* When a task is updated or added, the attachment icon and the custom color of the completion icon are wiped out.
+
+# Testing Environment
 **location:** modules/testing_environment_frosso
 
 ## About this module
