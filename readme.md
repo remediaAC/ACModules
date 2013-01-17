@@ -162,6 +162,6 @@ This module is also compatible with TasksPlus!
 ## Testing Environment
 **location:** modules/testing_environment_frosso
 
-## About this module
+### About this module
 Nothing to see here, move on!
 
