@@ -75,7 +75,7 @@ class IMilestoneTrackingImplementation extends ITrackingImplementation {
 	} // getSetEstimateUrl
 
 	function describe(IUser $user, $detailed, $for_interface, &$result) {
-		$result = parent::describe($user, $detailed, $for_interface, &$result);
+		$result = parent::describe($user, $detailed, $for_interface, $result);
 		$result['object_time'] = $this->sumTime($user);
 		
 		$estimate = $this->getEstimate();

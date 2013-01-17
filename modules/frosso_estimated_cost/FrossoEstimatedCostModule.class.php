@@ -16,7 +16,7 @@ class FrossoEstimatedCostModule extends AngieModule {
 	/*
 	 * Versione
 	*/
-	protected $version = '0.3';
+	protected $version = '0.4';
 	
 	public function getDisplayName(){
 		return lang('Milestone ETA - FRosso per reMedia');
