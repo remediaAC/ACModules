@@ -30,7 +30,7 @@ class FrossoTasksTabModModel {
 						rec.tracked_time
 					FROM " . TABLE_PREFIX . "project_objects o 
 					LEFT JOIN (SELECT parent_id, sum(value) tracked_time FROM " . TABLE_PREFIX . "time_records WHERE state = ? GROUP BY(parent_id)) rec ON(o.id=rec.parent_id)
-					WHERE o.type = 'Task' AND o.project_id = ? AND o.state = ? AND o.visibility >= ?"
+					WHERE o.type = 'Task' AND o.project_id = ? AND o.state = ? AND o.visibility >= ? ORDER BY o.id DESC"
 				, $state, $project->getId(), $state, $user->getMinVisibility());
 		if (is_foreachable($tasks)) {
 			$task_url = Router::assemble('project_task', array('project_slug' => $project->getSlug(), 'task_id' => '--TASKID--'));
