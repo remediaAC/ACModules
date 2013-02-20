@@ -5,4 +5,5 @@
   'Only tasks with attachments',
   'No attachment filter',
   'No label filter',
+  'Current label',
 ); ?>
