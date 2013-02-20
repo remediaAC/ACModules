@@ -317,11 +317,11 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
         'label' : App.lang('Current label'),
         'property' : 'label_id',
         'values' : [{
-        	'label' : App.lang('Nessun filtro label'),
+        	'label' : App.lang('No label filter'),
         	'value' : '',
         	'icon' : App.Wireframe.Utils.imageUrl('status-icons/tag.png', 'frosso_tasks_tab_mod'),
         	'default' : true,
-        	'breadcrumbs' : App.lang('Nessun filtro label')
+        	'breadcrumbs' : App.lang('No label filter')
           }, {
         	'label' : 'NEW',
         	'value' : '16',
@@ -368,21 +368,21 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
         'label' : App.lang('With attachments'),
         'property' : 'has_attachments',
         'values' : [{
-        	'label' : App.lang('Nessun filtro allegati'),
+        	'label' : App.lang('No attachment filter'),
         	'value' : '',
         	'icon' : App.Wireframe.Utils.imageUrl('16x16/icon-attachments.png', 'frosso_tasks_tab_mod'),
         	'default' : true,
-        	'breadcrumbs' : App.lang('Nessun filtro allegati')    
+        	'breadcrumbs' : App.lang('No attachment filter')    
           }, {
-        	'label' : App.lang('Solo tasks con allegati'),
+        	'label' : App.lang('Only tasks with attachments'),
         	'value' : true,
         	'icon' : App.Wireframe.Utils.imageUrl('16x16/icon-with_attachments.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : App.lang('Con allegati')
+        	'breadcrumbs' : App.lang('With attachments')
     	  }, {
-    	  	'label' : App.lang('Solo tasks senza allegati'),
+    	  	'label' : App.lang('Only tasks without attachments'),
         	'value' : false,
         	'icon' : App.Wireframe.Utils.imageUrl('16x16/icon-no_attachments.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : App.lang('Senza allegati')
+        	'breadcrumbs' : App.lang('Without attachments')
     	  }] 
         });
     /* FINE FRosso Hack */

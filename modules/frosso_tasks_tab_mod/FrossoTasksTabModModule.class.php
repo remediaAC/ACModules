@@ -20,7 +20,7 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	/*
 	 * Versione
 	 */
-	protected $version = '0.9';
+	protected $version = '0.10';
 	
 	/**
 	 * Name of the project object class (or classes) that this module uses
@@ -43,7 +43,7 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 		Router::map('project_tasks', 'projects/:project_slug/tasks', array('controller' => 'frosso_tasks_tab_mod', 'action' => 'index'));
 		
 		// Single task
-		// Servono perchè se viene salvato un task tra i preferiti, viene caricata la view dei tasks di default, senza il responsabile
+		// Servono perchï¿½ se viene salvato un task tra i preferiti, viene caricata la view dei tasks di default, senza il responsabile
 		Router::map('project_task', 'projects/:project_slug/tasks/:task_id', array('controller' => 'frosso_tasks_tab_mod', 'action' => 'view'), array('task_id' => Router::MATCH_ID));
 		Router::map('project_task_edit', 'projects/:project_slug/tasks/:task_id/edit', array('controller' => 'frosso_tasks_tab_mod', 'action' => 'edit'), array('task_id' => Router::MATCH_ID));
 		
