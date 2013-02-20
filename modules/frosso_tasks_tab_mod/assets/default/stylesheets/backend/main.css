@@ -13,7 +13,7 @@ div.objects_list_wrapper div.objects_list_details {
 }
 
 h1#page_title {
-	width: 600px !important;
+	/* width: 600px !important; */
 }
 
 #tasks tr.objects_list_item span.label_tag {
