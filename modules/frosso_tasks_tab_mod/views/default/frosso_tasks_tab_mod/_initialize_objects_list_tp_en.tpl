@@ -273,13 +273,17 @@ var selected_tasks_ids_str = selected_tasks_ids.join(',');
       /* INIZIO FRosso Hack */
       var terms = item.name.clean() + ' ' + '#' + item.task_id;
       // aggiungo ai termini di ricerca label
-      if (typeof(item['label_id']) != 'undefined' && item['label_id'] && typeof(labels_map.get(item['label_id'])) != 'undefined' ) {
-      	terms += ' ' + labels_map.get(item['label_id']).clean();
-      }
+      try{
+	      if (typeof(item['label_id']) != 'undefined' && item['label_id'] && typeof(labels_map.get(item['label_id'])) != 'undefined' ) {
+	      	terms += ' ' + labels_map.get(item['label_id']).clean();
+	      }
+      }catch (err){}
       // aggiungo ai termini di ricerca assignee
-      if (typeof(item['assignee_id']) != 'undefined' && item['assignee_id'] && typeof(users_map.get(item['assignee_id'])) != 'undefined') {
-      	terms += ' '+ users_map.get(item['assignee_id']).clean();
-      }
+      try{
+	      if (typeof(item['assignee_id']) != 'undefined' && item['assignee_id'] && typeof(users_map.get(item['assignee_id'])) != 'undefined') {
+	      	terms += ' '+ users_map.get(item['assignee_id']).clean();
+	      }
+      }catch (err){}
       return terms;
       /* FINE FRosso Hack */
     },
