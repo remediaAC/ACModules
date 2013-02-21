@@ -15,8 +15,9 @@ App.Wireframe.Utils['renderAttachmentsIndicator'] = function (has_attachments) {
 };
 
 
-
-
-
-
-
+App.Inspector.Properties.TaskSubscribers = function (object, client_interface) {
+	var subs_wrapper = $(this);
+	subs_wrapper.html("");
+	var img = App.Wireframe.Utils.imageUrl('icons/12x12/edit.png', 'environment');
+	subs_wrapper.append(img+' asd ');
+};

@@ -51,5 +51,6 @@ class FrossoTasksTabModModule extends ActiveCollabProjectSectionModule{
 	}
 	
 	function defineHandlers(){
+		EventsManager::listen('on_object_inspector', 'on_object_inspector');
 	}
 }
