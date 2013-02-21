@@ -244,7 +244,18 @@ $('#tasks').each(function() {
     },
 
     'search_index' : function (item) {
-      return item.name.clean() + ' ' + '#' + item.task_id;
+      /* INIZIO FRosso Hack */
+      var terms = item.name.clean() + ' ' + '#' + item.task_id;
+      // aggiungo ai termini di ricerca label
+      if (typeof(item['label_id']) != 'undefined' && item['label_id'] && typeof(labels_map.get(item['label_id'])) != 'undefined' ) {
+      	terms += ' ' + labels_map.get(item['label_id']).clean();
+      }
+      // aggiungo ai termini di ricerca assignee
+      if (typeof(item['assignee_id']) != 'undefined' && item['assignee_id'] && typeof(users_map.get(item['assignee_id'])) != 'undefined') {
+      	terms += ' '+ users_map.get(item['assignee_id']).clean();
+      }
+      return terms;
+      /* FINE FRosso Hack */
     },
 
     'grouping' : grouping,
