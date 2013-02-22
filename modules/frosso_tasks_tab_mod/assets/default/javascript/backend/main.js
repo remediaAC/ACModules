@@ -20,10 +20,10 @@ App.Inspector.Properties.TaskSubscribers = function (object, client_interface) {
 	subs_wrapper.html("");
 	var img = App.Wireframe.Utils.imageUrl('icons/12x12/edit.png', 'environment');
 	if(object['subscribers'].length > 0) {
-		subs_wrapper.append(App.Wireframe.Utils.userLink(object['subscribers'][0]));
+		subs_wrapper.append(App.Wireframe.Utils.userLink(object['subscribers'][0], true));
 		for (var i=1; i<object['subscribers'].length; i++) {
 			subs_wrapper.append(', ');
-			subs_wrapper.append(App.Wireframe.Utils.userLink(object['subscribers'][i]));
+			subs_wrapper.append(App.Wireframe.Utils.userLink(object['subscribers'][i], true));
 		}
 	}
 	if(object['options']['manage_subscriptions']) {
