@@ -291,57 +291,6 @@ $('#tasks').each(function() {
 
     /* INIZIO FRosso Hack */
     init_options.filtering.push({
-        'label' : App.lang('Current label'),
-        'property' : 'label_id',
-        'values' : [{
-        	'label' : App.lang('No label filter'),
-        	'value' : '',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/tag.png', 'frosso_tasks_tab_mod'),
-        	'default' : true,
-        	'breadcrumbs' : App.lang('No label filter')
-          }, {
-        	'label' : 'NEW',
-        	'value' : '16',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/new.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: NEW'
-    	  }, {
-    	  	'label' : 'REOPENED',
-        	'value' : '17',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/reopened.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: REOPENED'
-    	  }, {
-    	  	'label' : 'FEEDBACK',
-        	'value' : '18',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/feedback.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: FEEDBACK'
-    	  }, {
-    	  	'label' : 'ACKNOWLEDGED',
-        	'value' : '19',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/acknowledged.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: ACKNOWLEDGED'
-    	  }, {
-    	  	'label' : 'ASSIGNED',
-        	'value' : '20',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/assigned.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: ASSIGNED'
-    	  }, {
-    	  	'label' : 'IN PROGRESS',
-        	'value' : '21',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/in-progress.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: PROGRESS'
-    	  }, {
-    	  	'label' : 'RESOLVED',
-        	'value' : '22',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/resolved.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: RESOLVED'
-    	  }, {
-    	  	'label' : 'CLOSED',
-        	'value' : '23',
-        	'icon' : App.Wireframe.Utils.imageUrl('status-icons/closed.png', 'frosso_tasks_tab_mod'),
-        	'breadcrumbs' : 'Label: CLOSED'
-    	  }] 
-        });
-    init_options.filtering.push({
         'label' : App.lang('With attachments'),
         'property' : 'has_attachments',
         'values' : [{
