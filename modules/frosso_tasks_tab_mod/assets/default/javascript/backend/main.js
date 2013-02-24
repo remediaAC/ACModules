@@ -26,7 +26,7 @@ App.Inspector.Properties.TaskSubscribers = function (object, client_interface) {
 			subs_wrapper.append(App.Wireframe.Utils.userLink(object['subscribers'][i], true));
 		}
 	}
-	if(typeof(object['options']['manage_subscriptions']) != 'undefined' && object['options']['manage_subscriptions']) {
+	if((object['options']['manage_subscriptions']) && object['options']['manage_subscriptions']) {
 		subs_wrapper.append(' ');
 		var subs_obj = object['options']['manage_subscriptions'];
 		var subs_img = "<img src='" + subs_obj["icon"] + "' alt='" + subs_obj['text'].clean() + "' />";
