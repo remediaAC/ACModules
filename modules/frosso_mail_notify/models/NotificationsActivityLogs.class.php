@@ -32,7 +32,12 @@ class NotificationsActivityLogs extends ActivityLogs {
 		$query = self::getDBQuery($user);
 
 		if ($query) {
+			
+			Logger::log("Inizio a fare la query");
+			$timestamp = time();
 			$result = DB::execute($query);
+			$timestamp = time() - $timestamp;
+			Logger::log("Finita query in ".$timestamp." sec");
 
 			if ($result instanceof DBResult) {
 				$result -> setCasting(array(
@@ -71,9 +76,11 @@ class NotificationsActivityLogs extends ActivityLogs {
 		list($contexts, $ignore_contexts) = ApplicationObjects::getVisibileContexts($user);
 		
 		if ($contexts) {
-			$query = 'SELECT * FROM ' . TABLE_PREFIX . 'activity_logs WHERE created_by_id <> ' . $user->getId() . ' AND ' 
+			$query = 'SELECT * FROM ' . TABLE_PREFIX . 'activity_logs JOIN (SELECT parent_id FROM ' . TABLE_PREFIX . 'subscriptions s WHERE s.user_id=' . $user->getId() . ' GROUP BY parent_id) s ON(subject_id=s.parent_id) '
+					. ' WHERE created_by_id <> ' . $user->getId() . ' AND '
 					. self::conditionsFromContexts($contexts, $ignore_contexts) 
 					. self::ignoreActionConditions();
+					// . 'AND subject_id IN (SELECT parent_id FROM ' . TABLE_PREFIX . 'subscriptions WHERE user_id=' . $user->getId() . ' GROUP BY parent_id)';
 
 			if ($created_on instanceof DateTimeValue) {
 				
