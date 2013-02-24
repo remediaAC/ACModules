@@ -17,7 +17,7 @@ function frosso_mail_notify_handle_on_status_bar(StatusBar &$status_bar, IUser &
 	$status_bar->add('frosso_mn_updates', 
 		lang('Notifications'), 
 		Router::assemble('frosso_mail_notify'), 
-		AngieApplication::getImageUrl('icons/12x12/my-subscriptions.png', SYSTEM_MODULE), 
+		AngieApplication::getImageUrl('icons/12x12/my-subscriptions.png', FROSSO_MAILN_MODULE), 
 		array(
 			'group' => StatusBar::GROUP_RIGHT, 
 			'badge' => NotificationsActivityLogs::countSinceLastVisit($user),

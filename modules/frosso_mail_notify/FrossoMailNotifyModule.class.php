@@ -30,7 +30,7 @@ class FrossoMailNotifyModule extends AngieModule {
 	//protected $project_object_classes = 'Task';
 	
 	public function getDisplayName(){
-		return lang('ActivitiesNotifications - FRosso per reMedia');
+		return lang('ActivitiesNotifications - FRosso');
 	}
 	
 	public function getDescription(){
