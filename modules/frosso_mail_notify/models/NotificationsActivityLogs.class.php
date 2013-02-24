@@ -76,8 +76,9 @@ class NotificationsActivityLogs extends ActivityLogs {
 		list($contexts, $ignore_contexts) = ApplicationObjects::getVisibileContexts($user);
 		
 		if ($contexts) {
-			$query = 'SELECT * FROM ' . TABLE_PREFIX . 'activity_logs '
-					// . 'JOIN (SELECT parent_id FROM ' . TABLE_PREFIX . 'subscriptions s WHERE s.user_id=' . $user->getId() . ' GROUP BY parent_id) s ON(subject_id=s.parent_id) '
+			$query = 'SELECT * FROM ( SELECT * FROM ' . TABLE_PREFIX . 'activity_logs l '
+					// . 'JOIN (SELECT parent_id FROM ' . TABLE_PREFIX . 'subscriptions s WHERE s.user_id=' . $user->getId() . ' GROUP BY parent_id) s ON(l.target_id=s.parent_id) '
+					. ') ljs '
 					. 'WHERE created_by_id <> ' . $user->getId() . ' AND '
 					. self::conditionsFromContexts($contexts, $ignore_contexts) 
 					. self::ignoreActionConditions();
