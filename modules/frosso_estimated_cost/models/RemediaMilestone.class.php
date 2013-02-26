@@ -216,8 +216,8 @@ class RemediaMilestone extends Milestone implements ICustomFields, ITracking {
 		DB::execute('UPDATE ' . TABLE_PREFIX . 'modification_logs SET parent_type = ? WHERE parent_type = ?', 'Milestone', 'RemediaMilestone');
 		DB::execute('UPDATE ' . TABLE_PREFIX . 'activity_logs SET subject_type = ? WHERE subject_type = ?', 'Milestone', 'RemediaMilestone');
 		DB::execute('UPDATE ' . TABLE_PREFIX . 'activity_logs SET action = ? WHERE action = ?', 'milestone/created', 'remedia_milestone/created');
-		DB::execute('DELETE FROM ' . TABLE_PREFIX . 'subscriptions WHERE parent_type = \'RemediaMilestone\' AND parent_id IN (SELECT parent_id FROM ' . TABLE_PREFIX . 'subscriptions WHERE parent_type = \'Milestone\')');
-		DB::execute('UPDATE ' . TABLE_PREFIX . 'subscriptions SET parent_type = ? WHERE parent_type = ?', 'Milestone', 'RemediaMilestone');
+		// DB::execute('DELETE FROM ' . TABLE_PREFIX . 'subscriptions WHERE parent_type = \'RemediaMilestone\' AND parent_id IN (SELECT parent_id FROM ' . TABLE_PREFIX . 'subscriptions WHERE parent_type = \'Milestone\')');
+		// DB::execute('UPDATE ' . TABLE_PREFIX . 'subscriptions SET parent_type = ? WHERE parent_type = ?', 'Milestone', 'RemediaMilestone');
 		DB::commit('Milestone saved @ ' . __CLASS__);
 		
 		return $result;
