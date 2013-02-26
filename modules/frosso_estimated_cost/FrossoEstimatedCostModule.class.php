@@ -81,7 +81,14 @@ class FrossoEstimatedCostModule extends AngieModule {
 					VALUES (\'custom_field_3\', \'RemediaMilestone\', \'NULL\', 0)');
 			} catch (Exception $e) {}
 		}
+		// TODO: fix installazioni precedenti
+		// SELECT * FROM acx_subscriptions WHERE parent_type="RemediaMilestone" AND parent_id IN (SELECT parent_id FROM acx_subscriptions s1 WHERE s1.parent_type="Milestone" GROUP BY s1.parent_id)
+		DB::execute('UPDATE ' . TABLE_PREFIX . 'subscriptions SET parent_type = ? WHERE parent_type = ?', 'RemediaMilestone', 'Milestone');
 		return parent::install();
 	}
 	
+	function uninstall() {
+		parent::uninstall();
+		DB::execute('UPDATE ' . TABLE_PREFIX . 'subscriptions SET parent_type = ? WHERE parent_type = ?', 'Milestone', 'RemediaMilestone');
+	}
 }
